@@ -26,3 +26,5 @@ yarn-error.log*
 out/
 
 commit.sh
+
+next-env.d.ts
