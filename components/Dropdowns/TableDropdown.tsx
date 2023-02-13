@@ -1,11 +1,21 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 
-const NotificationDropdown = () => {
+interface NotificationDropdownProps {
+  handleView?: any,
+  handleEdit?: any,
+  handleDelete?: any,
+}
+
+const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
+  handleView,
+  handleEdit,
+  handleDelete,
+}) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-  const btnDropdownRef = React.createRef();
-  const popoverDropdownRef = React.createRef();
+  const btnDropdownRef = React.useRef(null);
+  const popoverDropdownRef = React.useRef(null);
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "left-start",
@@ -40,20 +50,38 @@ const NotificationDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={() => {
+            handleView?.()
+            setDropdownPopoverShow(false)
+          }}
         >
-          Action
+          View
         </a>
         <a
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={() => {
+            handleEdit?.()
+            setDropdownPopoverShow(false)
+          }}
         >
-          Another action
+          Edit
         </a>
         <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={() => {
+            handleDelete?.()
+            setDropdownPopoverShow(false)
+          }}
+        >
+          Delete
+        </a>
+        {/* <a
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
@@ -61,7 +89,7 @@ const NotificationDropdown = () => {
           onClick={(e) => e.preventDefault()}
         >
           Something else here
-        </a>
+        </a> */}
       </div>
     </>
   );
