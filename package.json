@@ -5,6 +5,10 @@
   "description": "Notus NextJS - A free Tailwind CSS, NextJS and React Ui Kit and Admin by Creative Tim.",
   "repository": "https://github.com/creativetimofficial/notus-nextjs",
   "license": "MIT",
+  "engines" : { 
+    "npm" : ">=8.0.0",
+    "node" : ">=18.0.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
     "@popperjs/core": "2.9.1",
