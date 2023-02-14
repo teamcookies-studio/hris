@@ -1,9 +1,9 @@
 import React from 'react';
-import { CustomTable } from '../../../common/CustomTable';
-import { Dropdown } from '../../../common/Dropdown';
-import { SearchInput } from '../../../common/SearchInput';
+import { CustomTable } from '../../common/CustomTable';
+import { Dropdown } from '../../common/Dropdown';
+import { SearchInput } from '../../common/SearchInput';
 
-import { MOCK_CUTI_OPTIONS } from '../constants';
+import { MOCK_CUTI_OPTIONS } from './constants';
 
 const MOCK_FILTER = [
   {value: 'tahun', label: 'Filter by Tahun'},
@@ -29,7 +29,7 @@ const MOCK_YEAR = [
 ]
 const MOCK_THEAD_QUOTA_MGM = [
   {
-    name: 'employee_name',
+    name: 'nama_employee',
     label: 'Nama Employee',
     value: '',
   },
@@ -44,29 +44,29 @@ const MOCK_THEAD_QUOTA_MGM = [
     value: '',
   },
   {
-    name: 'kuota_cuti',
-    label: 'Kuota Cuti',
+    name: 'kuota',
+    label: 'Kuota',
     value: '',
   },
 ]
 const MOCK_TBODY_QUOTA_MGM = [
   {
-    id: 1231,
-    employee_name: 'Muhammad Aryandi',
-    tahun: 2022,
-    tipe_cuti: 'Cuti Tahunan',
-    kuota_cuti: 2,
+    id: 1,
+    tahun: 2019,
+    nama_employee: 'Muhammad Aryandi',
+    tipe_cuti: 'Cuti Nikah',
+    kuota: 10,
   },
   {
     id: 2,
-    employee_name: 'Insan',
-    tahun: 2022,
-    tipe_cuti: 'Cuti Tahunan',
-    kuota_cuti: 4,
+    tahun: 2020,
+    nama_employee: 'Mas Andrian',
+    tipe_cuti: 'Cuti Umroh',
+    kuota: 6,
   },
 ]
 
-export default function KuotaManagement() {
+export default function TimeoffQuotaList() {
   const [isEditKuota, setEditKuota] = React.useState(false);
   const [optionTipeCuti, setOptionTipeCuti] = React.useState('byEmployee');
 
@@ -74,7 +74,7 @@ export default function KuotaManagement() {
     <div>
       {!isEditKuota ? (
         <CustomTable
-          tableTitle="List Kuota Pegawai"
+          tableTitle="Timeoff Quota"
           tableAction={() => (
             <>
               <SearchInput />
@@ -86,7 +86,7 @@ export default function KuotaManagement() {
                 type="button"
                 onClick={() => setEditKuota(prev => !prev)}
               >
-                Tambah Kuota
+                Set Quota
               </button>
             </>
           )}

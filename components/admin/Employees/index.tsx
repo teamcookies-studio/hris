@@ -1,15 +1,15 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { CustomTable } from '../../../common/CustomTable';
-import { FormProfile } from '../../../common/FormProfile';
+import { CustomTable } from '../../common/CustomTable';
+import { FormProfile } from '../../common/FormProfile';
 
 // Components
 // import { MOCK_TBODY, MOCK_THEAD } from '../constants';
 
 const MOCK_THEAD_LIST_PEGAWAI = [
   {
-    name: 'nama_employee',
+    name: 'employee_name',
     label: 'Nama Employee',
     value: '',
   },
@@ -24,25 +24,25 @@ const MOCK_THEAD_LIST_PEGAWAI = [
     value: '',
   },
   {
-    name: 'kuota',
-    label: 'Kuota',
+    name: 'kuota_cuti',
+    label: 'Kuota Cuti',
     value: '',
   },
 ]
 const MOCK_TBODY_LIST_PEGAWAI = [
   {
-    id: 1,
-    tahun: 2019,
-    nama_employee: 'Muhammad Aryandi',
-    tipe_cuti: 'Cuti Nikah',
-    kuota: 10,
+    id: 1231,
+    employee_name: 'Muhammad Aryandi',
+    tahun: 2022,
+    tipe_cuti: 'Cuti Tahunan',
+    kuota_cuti: 2,
   },
   {
     id: 2,
-    tahun: 2020,
-    nama_employee: 'Mas Andrian',
-    tipe_cuti: 'Cuti Umroh',
-    kuota: 6,
+    employee_name: 'Insan',
+    tahun: 2022,
+    tipe_cuti: 'Cuti Tahunan',
+    kuota_cuti: 4,
   },
 ]
 
@@ -63,7 +63,7 @@ export default function ListEmployees() {
                 type="button"
                 onClick={() => setEditOpen(prev => !prev)}
               >
-                Tambahkan Pegawai
+                Tambah Pegawai
               </button>
             </>
           )}

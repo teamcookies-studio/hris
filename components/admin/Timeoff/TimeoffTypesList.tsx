@@ -1,16 +1,16 @@
 import React from 'react';
-import { CustomTable } from '../../../common/CustomTable';
-import { Dropdown } from '../../../common/Dropdown';
+import { CustomTable } from '../../common/CustomTable';
+import { Dropdown } from '../../common/Dropdown';
 
-import { MOCK_CUTI_OPTIONS, MOCK_TBODY, MOCK_THEAD } from '../constants';
+import { MOCK_CUTI_OPTIONS, MOCK_TBODY, MOCK_THEAD } from './constants';
 
-export default function CutiPegawai() {
+export default function TimeoffList() {
   const [isEditOpen, setEditOpen] = React.useState(false);
   return (
     <div>
       {!isEditOpen ? (
         <CustomTable
-          tableTitle="Pengajuan Cuti"
+          tableTitle="Timeoff Types"
           tableAction={() => (
             <>
               <button
@@ -18,7 +18,7 @@ export default function CutiPegawai() {
                 type="button"
                 onClick={() => setEditOpen(prev => !prev)}
               >
-                Tambahkan Pengajuan Cuti
+                Add Timeoff Type
               </button>
             </>
           )}
@@ -53,7 +53,7 @@ export default function CutiPegawai() {
           <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
             <form>
               <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                Pengajuan Cuti
+                Timeoff Types
               </h6>
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-12/12 px-4">

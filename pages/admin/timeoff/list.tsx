@@ -1,9 +1,9 @@
 import Admin from "../../../layouts/Admin";
 
-import  { EmployeesLeave }  from "../../../components/admin/LeaveMenu/EmployeesLeave";
+import TimeoffList from "../../../components/admin/Timeoff/TimeoffList";
 
 export default function LeaveEmployeesList() {
-    return <EmployeesLeave />;
+    return <TimeoffList />;
 }
 
 LeaveEmployeesList.layout = Admin

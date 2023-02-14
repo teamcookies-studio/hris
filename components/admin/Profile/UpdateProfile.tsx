@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function UpdateProfil(){
+export default function UpdateProfile(){
     const selectRef = React.useRef(null);
     const handleSelectChange = e => {
       console.log('selectRef', selectRef.current.innerHTML);

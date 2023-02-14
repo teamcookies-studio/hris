@@ -1,9 +1,9 @@
 import Admin from '../../../layouts/Admin';
 
-import { LeaveTypeList } from '../../../components/admin/LeaveMenu/LeaveTypeList';
+import TimeoffTypesList from '../../../components/admin/Timeoff/TimeoffTypesList';
 
 export default function ListTipeCuti() {
-  return <LeaveTypeList />;
+  return <TimeoffTypesList />;
 }
 
 ListTipeCuti.layout = Admin;

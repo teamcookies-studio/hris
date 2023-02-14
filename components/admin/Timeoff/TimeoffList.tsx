@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTable } from '../../../common/CustomTable';
+import { CustomTable } from '../../common/CustomTable';
 // import { MOCK_TBODY, MOCK_THEAD } from '../constants';
 
 export const MOCK_THEAD_LEAVE_TYPE = [
@@ -55,14 +55,14 @@ export const MOCK_TBODY_LEAVE_TYPE = [
   },
 ]
 
-export default function LeaveTypeList() {
+export default function TimeoffTypesList() {
   const [isEditOpen, setEditOpen] = React.useState(false);
 
   return (
     <div>
       {!isEditOpen ? (
         <CustomTable
-          tableTitle="Tipe Cuti"
+          tableTitle="Timeoff List"
           tableAction={() => (
             <>
               <button
@@ -70,7 +70,7 @@ export default function LeaveTypeList() {
                 type="button"
                 onClick={() => setEditOpen(prev => !prev)}
               >
-                Create
+                Request A Timeoff
               </button>
             </>
           )}

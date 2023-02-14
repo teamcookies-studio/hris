@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PageProfil(){
+export default function ProfileDetail(){
     return(
         <div style={{ position: 'relative', minHeight: '500px' }}>
 
