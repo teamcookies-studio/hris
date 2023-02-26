@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import { CustomTable } from '../../common/CustomTable';
 import { FormProfile } from '../../common/FormProfile';
+import InviteEmployeeModal from './InviteEmployeeModal';
 
 // Components
 // import { MOCK_TBODY, MOCK_THEAD } from '../constants';
@@ -51,8 +52,11 @@ export default function ListEmployees() {
   const router = useRouter();
 
   const [isEditOpen, setEditOpen] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
+
   return (
     <div>
+      <InviteEmployeeModal showModal={showModal} setShowModal={setShowModal} />
       {!isEditOpen ? (
         <CustomTable
           tableTitle="List Pegawai"
@@ -64,6 +68,13 @@ export default function ListEmployees() {
                 onClick={() => setEditOpen(prev => !prev)}
               >
                 Tambah Pegawai
+              </button>
+              <button
+                className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => setShowModal(prev => !prev)}
+              >
+                Undang Pegawai
               </button>
             </>
           )}
