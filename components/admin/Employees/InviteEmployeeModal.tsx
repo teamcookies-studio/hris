@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 const InviteEmployeeModal = ({ showModal, setShowModal }) => {
+  const inputEmailRef = useRef(null);
+  const handleSubmit = () => {
+    setShowModal(false);
+  };
+
+  const handleClose = () => setShowModal(false);
+
   return showModal ? (
     <>
       <style jsx>{`
@@ -24,7 +31,7 @@ const InviteEmployeeModal = ({ showModal, setShowModal }) => {
           align-items: center;
         }
         .InviteEmployeeModal__formInput {
-
+          position: relative;
         }
         .InviteEmployeeModal__formAction {
 
@@ -41,7 +48,7 @@ const InviteEmployeeModal = ({ showModal, setShowModal }) => {
               </h2>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() => setShowModal(false)}
+                onClick={handleClose}
               >
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                   x
@@ -50,9 +57,10 @@ const InviteEmployeeModal = ({ showModal, setShowModal }) => {
             </div>
             <div className="InviteEmployeeModal__formInput relative p-6 flex-auto">
               <input
-                type="text"
+                ref={inputEmailRef}
+                type="email"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="Search Name"
+                placeholder="Masukkan Email"
               />
             </div>
             <div className="InviteEmployeeModal__formAction flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -66,9 +74,9 @@ const InviteEmployeeModal = ({ showModal, setShowModal }) => {
               <button
                 className="text-emerald-500 active:text-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
-                onClick={() => setShowModal(false)}
+                onClick={handleSubmit}
               >
-                Save Changes
+                Undang Pegawai
               </button>
             </div>
           </div>
