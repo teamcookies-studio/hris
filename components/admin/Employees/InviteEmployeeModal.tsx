@@ -51,7 +51,7 @@ const InviteEmployeeModal = ({ showModal, setShowModal }) => {
                 onClick={handleClose}
               >
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  x
+                  &#10006;
                 </span>
               </button>
             </div>
