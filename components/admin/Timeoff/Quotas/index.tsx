@@ -6,29 +6,29 @@ import { SearchInput } from '../../../common/SearchInput';
 
 
 const MOCK_FILTER = [
-  { value: 'tahun', label: 'Filter by Tahun' },
-  { value: 'tipe_cuti', label: 'Filter by Tipe Cuti' },
+  { value: 'year', label: 'Filter by Year' },
+  { value: 'timeoff_type', label: 'Filter by Timeoff Type' },
 ]
 
 const MOCK_THEAD_QUOTA_MGM = [
   {
-    name: 'nama_employee',
-    label: 'Nama Employee',
+    name: 'employee_name',
+    label: 'Employee Name',
     value: '',
   },
   {
-    name: 'tahun',
-    label: 'Tahun',
+    name: 'year',
+    label: 'Year',
     value: '',
   },
   {
-    name: 'tipe_cuti',
-    label: 'Tipe Cuti',
+    name: 'timeoff_type',
+    label: 'Timeoff Type',
     value: '',
   },
   {
-    name: 'kuota',
-    label: 'Kuota',
+    name: 'quota',
+    label: 'Quota',
     value: '',
   },
 ]
@@ -36,16 +36,16 @@ const MOCK_TBODY_QUOTA_MGM = [
   {
     id: 1,
     tahun: 2019,
-    nama_employee: 'Muhammad Aryandi',
-    tipe_cuti: 'Cuti Nikah',
-    kuota: 10,
+    employee_name: 'Muhammad Aryandi',
+    timeoff_type: 'Cuti Nikah',
+    quota: 10,
   },
   {
     id: 2,
     tahun: 2020,
-    nama_employee: 'Mas Andrian',
-    tipe_cuti: 'Cuti Umroh',
-    kuota: 6,
+    employee_name: 'Mas Andrian',
+    timeoff_type: 'Cuti Umroh',
+    quota: 6,
   },
 ]
 

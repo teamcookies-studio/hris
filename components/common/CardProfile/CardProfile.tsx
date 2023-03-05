@@ -31,7 +31,7 @@ export default function CardProfile({
                   Muhammad Aryandi
                 </h3>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                  Software Engineer (Frontend)
+                  Software Engineer (Frontend Web Developer)
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@ export default function CardProfile({
           <div className="flex flex-wrap mt-6 md:text-center">
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Nama Panggilan
+                Nickname
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
                 Aryandi
@@ -47,23 +47,23 @@ export default function CardProfile({
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Jenis Kelamin
+                Gender
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                Laki-laki
+                Male
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Telepon
+                Phone Number
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                +62 080989999
+                +62 080989999xxx
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Email Pribadi
+                Personal Email
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
                 testing123@gmail.com
@@ -71,7 +71,7 @@ export default function CardProfile({
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Email Kantor
+                Company Email
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
                 aryandi_ganteng99@teamcookies.studio
@@ -87,7 +87,7 @@ export default function CardProfile({
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Jumlah Anak
+                Number of Kids
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
                 0
@@ -95,15 +95,15 @@ export default function CardProfile({
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Status Pernikahan
+                Martial Status
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                Sudah Menikah
+                Married
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
               <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Alamat
+                Address
               </h4>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
                 Jl. Dg Ramang. Perumahan Permata Sudiang Raya.

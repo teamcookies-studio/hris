@@ -1,14 +1,14 @@
 import React from 'react';
-import { MOCK_CUTI_OPTIONS } from '../constants';
+import { MOCK_TIMEOFF_OPTIONS } from '../constants';
 import { Dropdown } from '../../../common/Dropdown';
 import Link from 'next/link';
 
 const MOCK_SET_QUOTA_BY = [
   { value: 'by_employee', label: 'By Employee' },
-  { value: 'by_tipe_cuti', label: 'By Tipe Cuti' },
+  { value: 'by_timeoff_type', label: 'By Timeoff Type' },
 ]
 
-const MOCK_NAMA_EMPLOYEE = [
+const MOCK_EMPLOYEE_NAME = [
   { value: 1, label: 'Muhammad Aryandi' },
   { value: 2, label: 'Mas Insan' },
   { value: 3, label: 'Mas Fari' },
@@ -22,14 +22,14 @@ const MOCK_YEAR = [
 ]
 
 const TimeoffQuotaForm = () => {
-  const [optionTipeCuti, setOptionTipeCuti] = React.useState('byEmployee');
+  const [optionTimeoffType, setOptionTimeoffType] = React.useState('byEmployee');
 
   return <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
     <div className="rounded-t mb-0 px-6 py-6 border-0">
       <div className="flex flex-wrap items-center">
         <div className="relative w-full max-w-full flex-grow flex-1">
           <h3 className="font-semibold text-base text-blueGray-700">
-            List Kuota Pegawai
+            Employee Quota Lists
           </h3>
         </div>
         {false ? (
@@ -44,7 +44,7 @@ const TimeoffQuotaForm = () => {
               href="/admin/timeoff/quotas/updates/1"
               className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
             >
-              Update Kuota
+              Update Quota
             </Link>
           </>
         ) : (
@@ -52,7 +52,7 @@ const TimeoffQuotaForm = () => {
             href="/admin/timeoff/quotas"
             className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
           >
-            Set Kuota
+            Set Quota
           </Link>
         )}
       </div>
@@ -64,11 +64,11 @@ const TimeoffQuotaForm = () => {
             options={MOCK_SET_QUOTA_BY}
             value={`by_employee`}
             className="w-full"
-            handleChange={e => setOptionTipeCuti(e.target.value)}
+            handleChange={e => setOptionTimeoffType(e.target.value)}
           />
 
         </div>
-        {optionTipeCuti === 'byEmployee' && (
+        {optionTimeoffType === 'byEmployee' && (
           <div className="flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4">
               <div className="relative w-full mb-3">
@@ -76,10 +76,10 @@ const TimeoffQuotaForm = () => {
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Select Nama
+                  Select Name
                 </label>
                 <div className="relative w-full lg:max-w-sm">
-                  <Dropdown className='w-full' options={MOCK_NAMA_EMPLOYEE} value={1} />
+                  <Dropdown className='w-full' options={MOCK_EMPLOYEE_NAME} value={1} />
                 </div>
               </div>
             </div>
@@ -92,10 +92,10 @@ const TimeoffQuotaForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                Tipe cuti
+                Timeoff Type
               </label>
               <div className="relative w-full lg:max-w-sm">
-                <Dropdown className='w-full' options={MOCK_CUTI_OPTIONS} value={`cuti_sakit`} />
+                <Dropdown className='w-full' options={MOCK_TIMEOFF_OPTIONS} value={`cuti_sakit`} />
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ const TimeoffQuotaForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                Jumlah Kuota
+                Number of Quota
               </label>
               <input
                 type="text"

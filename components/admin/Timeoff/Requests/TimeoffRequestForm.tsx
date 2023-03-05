@@ -18,7 +18,7 @@ const TimeoffRequestForm = () => {
             href="/admin/timeoff/types"
             className="bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
           >
-            Update Cuti
+            Update Timeoff
           </Link>
         </div>
       </div>
@@ -35,7 +35,7 @@ const TimeoffRequestForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                Tipe Cuti
+                Timeoff Type
               </label>
               <div className="relative w-full lg:max-w-sm">
                 <Dropdown className="w-full" options={MOCK_CUTI_OPTIONS} value={`cuti_sakit`} handleChange={() => { }} />

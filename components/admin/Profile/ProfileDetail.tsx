@@ -46,7 +46,7 @@ export default function ProfileDetail(){
                                 <td className="px-2 py-2">+88 9955221114</td>
                             </tr>
                             <tr>
-                                <td className="px-2 py-2 text-gray-500 font-semibold">Private Email</td>
+                                <td className="px-2 py-2 text-gray-500 font-semibold">Personal Email</td>
                                 <td className="px-2 py-2">lorem@exmaple.com</td>
                             </tr>
                             <tr>
@@ -62,7 +62,7 @@ export default function ProfileDetail(){
                                 <td className="px-2 py-2">XX-XX-XXXX</td>
                             </tr>
                             <tr>
-                                <td className="px-2 py-2 text-gray-500 font-semibold">marital status</td>
+                                <td className="px-2 py-2 text-gray-500 font-semibold">Marital Status</td>
                                 <td className="px-2 py-2">--</td>
                             </tr>
                             <tr>

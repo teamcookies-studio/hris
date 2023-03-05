@@ -10,7 +10,7 @@ export const MOCK_THEAD_LEAVE_TYPE = [
   },
   {
     name: 'tipe_cuti',
-    label: 'Tipe Cuti',
+    label: 'Timeoff Type',
     value: '',
   },
   {
