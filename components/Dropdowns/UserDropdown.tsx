@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from 'next/router';
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { auth } from "../../services/auth";
 
 const UserDropdown = () => {
-  const router = useRouter();
+  const supabase = useSupabaseClient();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -15,7 +18,7 @@ const UserDropdown = () => {
     }
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {  
+    return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [dropdownRef]);
@@ -26,6 +29,13 @@ const UserDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const signOut = async () => {
+    setIsLoading(true);
+    await auth.signOut(supabase);
+    setIsLoading(false);
+  }
+
   return (
     <div className="relative">
       <a
@@ -86,9 +96,9 @@ const UserDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-500 hover:text-blueGray-700"
           }
-          onClick={() => router.push('admin/profile')}
+          onClick={signOut}
         >
-          Logout
+          {isLoading ? <i className="fas fa-circle-notch fa-spin"></i> : "Logout"}
         </a>
       </div>
     </div>

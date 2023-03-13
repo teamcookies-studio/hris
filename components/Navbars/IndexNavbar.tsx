@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 
-import IndexDropdown from "../../components/Dropdowns/IndexDropdown";
 import Image from "next/image";
 
 export default function Navbar(props) {
@@ -59,23 +58,23 @@ export default function Navbar(props) {
               </li> */}
 
               <li className="flex items-center">
-                <Link href="login">
+                <Link href="register">
                   <button
-                    className="bg-blueGray-700 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+                    className="bg-white-700 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                     type="button"
                   >
-                    Login <i className="fas fa-arrow-alt-circle-right"></i>
+                    Sign Up
                   </button>
                 </Link>
               </li>
 
               <li className="flex items-center">
-                <Link href="register">
+                <Link href="login">
                   <button
                     className="bg-blueGray-700 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                     type="button"
                   >
-                    Register <i className="fas fa-arrow-alt-circle-right"></i>
+                    Sign In <i className="fas fa-arrow-alt-circle-right"></i>
                   </button>
                 </Link>
               </li>

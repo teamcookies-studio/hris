@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import App from "next/app";
+import App, { AppProps } from "next/app";
 import Head from "next/head";
 import Router from "next/router";
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 
 import PageChange from "../components/PageChange/PageChange";
 
@@ -26,7 +28,7 @@ Router.events.on("routeChangeError", () => {
   document.body.classList.remove("body-page-transition");
 });
 
-export default class MyApp extends App {
+class MyApp extends App {
   componentDidMount() {
     let comment = document.createComment(`
 
@@ -80,3 +82,27 @@ export default class MyApp extends App {
     );
   }
 }
+
+const WrappedApp = ({
+  Component,
+  pageProps,
+}: AppProps<{
+  initialSession: Session
+}>) => {
+  // Create a new supabase browser client on every first render.
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient({
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_KEY
+  }))
+
+  return (
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
+      <MyApp Component={Component} pageProps={pageProps} />
+    </SessionContextProvider>
+  )
+}
+
+export default WrappedApp;
