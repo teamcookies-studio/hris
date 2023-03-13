@@ -2955,12 +2955,20 @@ select {
   top: auto;
 }
 
+.top-48 {
+  top: 48px;
+}
+
 .bottom-auto {
   bottom: auto;
 }
 
 .left-auto {
   left: auto;
+}
+
+.right-2-rem {
+  right: 2rem;
 }
 
 .-right-100 {

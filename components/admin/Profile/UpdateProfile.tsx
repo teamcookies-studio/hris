@@ -33,7 +33,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Nama Lengkap
+                    Full Name
                   </label>
                   <input
                     type="text"
@@ -63,12 +63,12 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Jenis Kelamin
+                    Gender
                   </label>
                     <div className="relative w-full lg:max-w-sm">
                       <select onChange={handleSelectChange} className="border-0 w-full p-2.5 text-gray-500 bg-white rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                        <option>Laki-Laki</option>
-                        <option>Perempuan</option>
+                        <option>Male</option>
+                        <option>Female</option>
                       </select>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Telepon
+                    Phone Number
                   </label>
                   <input
                     type="number"
@@ -94,7 +94,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Email Kantor
+                    Office Email
                   </label>
                   <input
                     type="email"
@@ -109,7 +109,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Email Pribadi
+                    Privite Email
                   </label>
                   <input
                     type="text"
@@ -132,7 +132,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Alamat
+                    Address
                   </label>
                   <input
                     type="text"
@@ -162,7 +162,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                     foto
+                     Photos
                   </label>
                   <input
                     type="file"
@@ -177,7 +177,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                     Status Pernikahan
+                     Martial Status
                   </label>
                   <input
                     type="text"
@@ -192,7 +192,7 @@ export default function UpdateProfile(){
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Anak
+                    Kids
                   </label>
                   <input
                     type="number"

@@ -1,29 +1,29 @@
 export const MOCK_THEAD = [
   {
-    name: 'list_tipe_cuti',
-    label: 'List Tipe Cuti',
+    name: 'timeoff_type_lists',
+    label: 'Timeoff Type Lists',
     value: '',
   },
   {
-    name: 'status_tipe_cuti',
-    label: 'Status Tipe Cuti',
+    name: 'timeoff_type_status',
+    label: 'Timeoff Type Status',
     value: '',
   },
 ]
 export const MOCK_TBODY = [
   {
     id: 1231,
-    list_tipe_cuti: 'Cuti Lahiran',
-    status_tipe_cuti: 'Pending',
+    timeoff_type_lists: 'Cuti Lahiran',
+    timeoff_type_status: 'Pending',
   },
   {
     id: 4352,
-    list_tipe_cuti: 'Cuti Umroh',
-    status_tipe_cuti: 'In Review',
+    timeoff_type_lists: 'Cuti Umroh',
+    timeoff_type_status: 'In Review',
   },
 ]
 
-export const MOCK_CUTI_OPTIONS = [
+export const MOCK_TIMEOFF_OPTIONS = [
   {value: 'cuti_sakit', label: 'Cuti Sakit'},
   {value: 'cuti_Libur', label: 'Cuti Libur'},
   {value: 'cuti_nikah', label: 'Cuti Nikah'},

@@ -1,7 +1,5 @@
 import React from "react";
 
-// Components
-
 export default function FormEmployees(){
     return(
         <div style={{

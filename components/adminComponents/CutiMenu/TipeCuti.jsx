@@ -11,7 +11,7 @@ export default function TipeCuti({color}){
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                 <div className="rounded-t bg-white mb-0 px-6 py-6">
                     <div className="text-center flex justify-between">
-                        <h6 className="text-blueGray-700 font-bold">Form Cuti</h6>
+                        <h6 className="text-blueGray-700 font-bold">Timeoff Form</h6>
                         <div>
                           <button
                             className="bg-red-700 active:bg-red-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
@@ -25,7 +25,7 @@ export default function TipeCuti({color}){
                             type="button"
                             onClick={() => setEditOpen(prev => !prev)}
                           >
-                            Update Cuti
+                            Update Timeoff
                           </button>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ export default function TipeCuti({color}){
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlFor="grid-password"
                                     >
-                                        Tipe Cuti
+                                        Timeoff Type
                                     </label>
                                     <input
                                         type="text"
@@ -57,12 +57,12 @@ export default function TipeCuti({color}){
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlFor="grid-password"
                                     >
-                                        Deskripsi Cuti
+                                        Timeoff Description
                                     </label>
                                     <textarea
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         rows={4}
-                                        defaultValue="Deskripsi."
+                                        defaultValue="Description."
                                     ></textarea>
                                     </div>
                             </div>
@@ -77,7 +77,7 @@ export default function TipeCuti({color}){
                 <div className="flex flex-wrap items-center">
                   <div className="relative w-full max-w-full flex-grow flex-1">
                     <h3 className="text-left font-semibold text-base text-blueGray-700">
-                      Tipe Cuti
+                      Timeoff Type
                     </h3>
                   </div>
                   <button
@@ -98,7 +98,7 @@ export default function TipeCuti({color}){
                         No.
                       </th>
                       <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                        List Tipe Cuti
+                        Timeoff Type Lists
                       </th>
                       <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
                         

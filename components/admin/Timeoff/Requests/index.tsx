@@ -4,28 +4,28 @@ import { CustomTable } from '../../../common/CustomTable';
 
 export const MOCK_THEAD_LEAVE_TYPE = [
   {
-    name: 'employee_requester',
-    label: 'Nama Pengaju',
+    name: 'applicant_name',
+    label: 'Applicant Name',
     value: '',
   },
   {
-    name: 'tipe_cuti',
-    label: 'Tipe Cuti',
+    name: 'timeoff_type',
+    label: 'Timeoff Type',
     value: '',
   },
   {
-    name: 'tanggal_cuti',
-    label: 'Tanggal Cuti',
+    name: 'timeoff_date',
+    label: 'Timeoff Date',
     value: '',
   },
   {
     name: 'delegate_tasks',
-    label: 'Delegasi Kerjaan',
+    label: 'Delegate Tasks',
     value: '',
   },
   {
     name: 'notes',
-    label: 'Catatan',
+    label: 'Notes',
     value: '',
   },
   {
@@ -37,18 +37,18 @@ export const MOCK_THEAD_LEAVE_TYPE = [
 export const MOCK_TBODY_LEAVE_TYPE = [
   {
     id: 1231,
-    employee_requester: 'Aryandi',
-    tipe_cuti: 'Cuti Nikah',
-    tanggal_cuti: '22 Mei 2022',
+    applicant_name: 'Aryandi',
+    timeoff_type: 'Cuti Nikah',
+    timeoff_date: '22 Mei 2022',
     delegate_tasks: 'Kris',
     notes: 'Cuti 10 hari',
     status: 'approve',
   },
   {
     id: 222,
-    employee_requester: 'Insan',
-    tipe_cuti: 'Cuti Umroh',
-    tanggal_cuti: '22 Mei 2023',
+    applicant_name: 'Insan',
+    timeoff_type: 'Cuti Umroh',
+    timeoff_date: '22 Mei 2023',
     delegate_tasks: 'Fari',
     notes: 'Cuti 9 hari',
     status: 'approve',
