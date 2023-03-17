@@ -3,6 +3,7 @@ import ERROR from "../../utils/errors";
 import {
   TimeoffQuota,
   TimeoffQuotaCreatePayload,
+  TimeoffQuotaWithTypeAndEmployee,
   TimeoffQuotaUpdatePayload,
 } from "./timeoff-quota.interface";
 
@@ -16,6 +17,20 @@ const timeoffQuotaRepository = {
       .insert(payload)
       .select()
       .single();
+
+    if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
+
+    return data;
+  },
+
+  bulkCreate: async (
+    supabase: SupabaseClient,
+    payload: TimeoffQuotaCreatePayload[]
+  ): Promise<TimeoffQuota[]> => {
+    const { error, data } = await supabase
+      .from("timeoff_quotas")
+      .insert(payload)
+      .select('*')
 
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 
@@ -64,6 +79,20 @@ const timeoffQuotaRepository = {
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 
     return data;
+  },
+
+  findAllByClient: async (supabase: SupabaseClient, client: string): Promise<TimeoffQuotaWithTypeAndEmployee[]> => {
+    const { error, data } = await supabase.from("timeoff_quotas")
+      .select('*, timeoff_type_id(label), employee_id(name)')
+      .eq('employee_id.client_id', client)
+
+    if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
+
+    return data.map((val) => ({
+      ...val,
+      type: val.timeoff_type_id.label,
+      employee_name: val.employee_id.name,
+    }));
   },
 };
 

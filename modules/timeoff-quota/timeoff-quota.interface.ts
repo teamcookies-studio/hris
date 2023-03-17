@@ -7,6 +7,11 @@ export interface TimeoffQuota {
   created_at: Date;
 }
 
+export interface TimeoffQuotaWithTypeAndEmployee extends TimeoffQuota {
+  type: string;
+  employee_name: string;
+}
+
 export interface TimeoffQuotaCreatePayload {
   year: number;
   quota: number;

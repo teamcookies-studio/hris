@@ -46,3 +46,8 @@ export interface EmployeeUpdatePayload {
   role_id?: string;
   client_id?: string;
 }
+
+export interface EmployeeFindAllPayload {
+  role_id?: string;
+  client_id?: string;
+}

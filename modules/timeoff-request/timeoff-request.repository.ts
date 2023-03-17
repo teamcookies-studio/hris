@@ -48,9 +48,19 @@ const timeoffRequestRepository = {
     supabase: SupabaseClient,
     payload: TimeoffRequestFindAllPayload
   ): Promise<TimeoffRequest[]> => {
-    let builder = supabase.from("timeoff_requests").select("*").range(0, 10);
+    let builder = supabase.from("timeoff_requests")
+      .select(`*,
+        employee:employee_id(name),
+        reviewer:reviewed_by(name),
+        delegate:delegate_to(name),
+        type:timeoff_type_id(label)`
+      )
+      .range(0, 10);
 
     builder = Object.keys(payload).reduce((prev, key) => {
+      if (key === 'client_id') {
+        return prev.eq('employee.client_id', payload[key])
+      }
       return prev.eq(key, payload[key]);
     }, builder);
 
@@ -58,7 +68,13 @@ const timeoffRequestRepository = {
 
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 
-    return data;
+    return data.map((val) => ({
+      ...val,
+      employee_name: val.employee.name,
+      reviewer: val.reviewer.name,
+      delegate: val.delegate.name,
+      type: val.type.label
+    }));
   },
 
   findOne: async (

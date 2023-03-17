@@ -1,11 +1,11 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import ERROR from "../../utils/errors";
-import { Role, Roles } from "./role.interface";
+import { Role } from "./role.interface";
 
 const roleRepository = {
-  findByLabel: async (
+  findOne: async (
     supabase: SupabaseClient,
-    label: Roles
+    label: Partial<Role>
   ): Promise<Role> => {
     const { error, data } = await supabase
       .from("roles")

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { CustomTable } from '../../Common/CustomTable';
+import { CustomTable } from '../../common/CustomTable';
 // import { FormProfile } from '../../Common/FormProfile';
 import InviteEmployeeModal from './InviteEmployeeModal';
 import { ADD_EMPLOYEE, EMPLOYEE_LISTS, EMPLOYEE_NAME, INVITE_EMPLOYEE, TIMEOFF_QUOTA, TIMEOFF_TYPE, YEAR } from '../../../utils/constants';

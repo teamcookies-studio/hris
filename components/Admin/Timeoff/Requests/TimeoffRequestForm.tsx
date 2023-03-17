@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Dropdown } from '../../../Common/Dropdown';
-import { MOCK_CUTI_OPTIONS } from '../constants';
+import { Dropdown } from "../../../common/Dropdown";
 
 const TimeoffRequestForm = () => {
   return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
@@ -38,7 +37,7 @@ const TimeoffRequestForm = () => {
                 Timeoff Type
               </label>
               <div className="relative w-full lg:max-w-sm">
-                <Dropdown className="w-full" options={MOCK_CUTI_OPTIONS} value={`cuti_sakit`} handleChange={() => { }} />
+                <Dropdown className="w-full" options={[{value: 'cuti_sakit', label: 'Cuti Sakit'}]} value={`cuti_sakit`} handleChange={() => { }} />
               </div>
             </div>
           </div>

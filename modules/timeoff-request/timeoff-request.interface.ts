@@ -8,6 +8,10 @@ export interface TimeoffRequest {
   reviewed_by: string;
   delegate_to: string;
   created_at: string;
+  employee_name: string;
+  reviewer: string;
+  delegate: string;
+  type: string;
 }
 
 export enum TimeoffStatus {
@@ -45,4 +49,5 @@ export interface TimeoffRequestFindAllPayload {
   employee_id?: string;
   reviewed_by?: string;
   delegate_to?: string;
+  client_id?: string;
 }

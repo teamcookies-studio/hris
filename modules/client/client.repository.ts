@@ -37,6 +37,22 @@ const clientRepository = {
 
     return data;
   },
+  findOne: async (
+    supabase: SupabaseClient,
+    payload: Partial<Client>
+  ): Promise<Client | null> => {
+    let builder = supabase.from("clients").select("*");
+
+    builder = Object.keys(payload).reduce((prev, key) => {
+      return prev.eq(key, payload[key]);
+    }, builder);
+
+    const { error, data } = await builder.single();
+
+    if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
+
+    return data;
+  },
 };
 
 export default clientRepository;

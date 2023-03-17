@@ -3,6 +3,7 @@ import ERROR from "../../utils/errors";
 import {
   Employee,
   EmployeeCreatePayload,
+  EmployeeFindAllPayload,
   EmployeeUpdatePayload,
 } from "./employee.interface";
 
@@ -37,8 +38,14 @@ const employeeRepository = {
 
     return data;
   },
-  findAll: async (supabase: SupabaseClient): Promise<Employee[]> => {
-    const { error, data } = await supabase.from("employees").select("*");
+  findAll: async (supabase: SupabaseClient, payload: EmployeeFindAllPayload): Promise<Employee[]> => {
+    let builder = supabase.from("employees").select("*").range(0, 10);
+
+    builder = Object.keys(payload).reduce((prev, key) => {
+      return prev.eq(key, payload[key]);
+    }, builder);
+
+    const { error, data } = await builder;
 
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 

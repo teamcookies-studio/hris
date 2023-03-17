@@ -6,6 +6,6 @@ export enum Roles {
 
 export interface Role {
   id: string;
-  label: string;
+  label: Roles;
   created_at: string;
 }

@@ -3,6 +3,7 @@ import ERROR from "../../utils/errors";
 import {
   TimeoffType,
   TimeoffTypeCreatePayload,
+  TimeoffTypeFindAllPayload,
   TimeoffTypeUpdatePayload,
 } from "./timeoff-type.interface";
 
@@ -42,9 +43,19 @@ const timeoffTypeRepository = {
 
     return data;
   },
+  findAll: async (
+    supabase: SupabaseClient,
+    payload: TimeoffTypeFindAllPayload
+  ): Promise<TimeoffType[]> => {
+    let builder = supabase.from("timeoff_types")
+      .select("*")
+      .range(0, 10);
 
-  findAll: async (supabase: SupabaseClient): Promise<TimeoffType[]> => {
-    const { error, data } = await supabase.from("timeoff_types").select("*");
+    builder = Object.keys(payload).reduce((prev, key) => {
+      return prev.eq(key, payload[key]);
+    }, builder);
+
+    const { error, data } = await builder;
 
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 
