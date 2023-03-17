@@ -1,7 +1,9 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export const authRepository = {
+const authRepository = {
   signOut: async (supabase: SupabaseClient) => {
     await supabase.auth.signOut();
   },
 };
+
+export default authRepository;

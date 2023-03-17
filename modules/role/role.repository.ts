@@ -2,7 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import ERROR from "../../utils/errors";
 import { Role, Roles } from "./role.interface";
 
-export const role = {
+const roleRepository = {
   findByLabel: async (
     supabase: SupabaseClient,
     label: Roles
@@ -18,3 +18,5 @@ export const role = {
     return data;
   },
 };
+
+export default roleRepository;

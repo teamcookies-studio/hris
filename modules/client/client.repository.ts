@@ -6,7 +6,7 @@ import {
   ClientUpdatePayload,
 } from "./client.interface";
 
-export const client = {
+const clientRepository = {
   create: async (
     supabase: SupabaseClient,
     payload: ClientCreatePayload
@@ -38,3 +38,5 @@ export const client = {
     return data;
   },
 };
+
+export default clientRepository;

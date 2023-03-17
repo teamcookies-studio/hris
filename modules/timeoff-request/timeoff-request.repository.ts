@@ -7,7 +7,7 @@ import {
   TimeoffRequestUpdatePayload,
 } from "./timeoff-request.interface";
 
-export const timeoffRequest = {
+const timeoffRequestRepository = {
   create: async (
     supabase: SupabaseClient,
     payload: TimeoffRequestCreatePayload
@@ -78,3 +78,5 @@ export const timeoffRequest = {
     return data;
   },
 };
+
+export default timeoffRequestRepository;

@@ -6,7 +6,7 @@ import {
   TimeoffQuotaUpdatePayload,
 } from "./timeoff-quota.interface";
 
-export const timeoffQuota = {
+const timeoffQuotaRepository = {
   create: async (
     supabase: SupabaseClient,
     payload: TimeoffQuotaCreatePayload
@@ -66,3 +66,5 @@ export const timeoffQuota = {
     return data;
   },
 };
+
+export default timeoffQuotaRepository;

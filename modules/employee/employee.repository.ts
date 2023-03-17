@@ -6,7 +6,7 @@ import {
   EmployeeUpdatePayload,
 } from "./employee.interface";
 
-export const employee = {
+const employeeRepository = {
   create: async (
     supabase: SupabaseClient,
     payload: EmployeeCreatePayload
@@ -61,3 +61,5 @@ export const employee = {
     return data;
   },
 };
+
+export default employeeRepository;

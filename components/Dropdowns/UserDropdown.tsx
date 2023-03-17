@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { authRepository } from "../../modules/auth/auth.repository";
+import authService from "../../services/auth/auth.service";
 
 const UserDropdown = () => {
   const supabase = useSupabaseClient();
@@ -32,7 +32,7 @@ const UserDropdown = () => {
 
   const signOut = async () => {
     setIsLoading(true);
-    await authRepository.signOut(supabase);
+    await authService.signOut(supabase);
     setIsLoading(false);
   }
 
