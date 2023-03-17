@@ -1,11 +1,12 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { timeoffQuota as timeoffQuotaRepository } from '../repositories/timeoff-quota';
-import { timeoffRequest as timeoffRequestRepository, TimeoffStatus } from '../repositories/timeoff-request';
+import { timeoffQuota as timeoffQuotaRepository } from '../modules/timeoff-quota/timeoff-quota.repository';
+import { timeoffRequest as timeoffRequestRepository } from '../modules/timeoff-request/timeoff-request.repository';
 import moment from 'moment';
+import { TimeoffStatus } from "../modules/timeoff-request/timeoff-request.interface";
 
 export const timeoff = {
-  request: async (client: SupabaseClient, payload: RequestTimeoffPayload) => {
-    const quota = await timeoffQuotaRepository.findOne(client, {
+  request: async (supabase: SupabaseClient, payload: RequestTimeoffPayload) => {
+    const quota = await timeoffQuotaRepository.findOne(supabase, {
       employee_id: payload.employee_id,
       year: moment().year(),
     });
@@ -16,21 +17,21 @@ export const timeoff = {
       throw new Error();
     }
 
-    const result = await timeoffRequestRepository.create(client, {
+    const result = await timeoffRequestRepository.create(supabase, {
       ...payload,
       status: TimeoffStatus.PENDING,
     });
 
     return result;
   },
-  review: async (client: SupabaseClient, payload: TimeoffRequestReviewPayload) => {
-    const timeoff = await timeoffRequestRepository.findOne(client, { id: payload.timeoff_request_id });
+  review: async (supabase: SupabaseClient, payload: TimeoffRequestReviewPayload) => {
+    const timeoff = await timeoffRequestRepository.findOne(supabase, { id: payload.timeoff_request_id });
     if (timeoff) {
       if (timeoff.reviewed_by !== payload.reviewer_id) {
         throw new Error();
       }
 
-      const result = await timeoffRequestRepository.update(client, {
+      const result = await timeoffRequestRepository.update(supabase, {
         id: payload.timeoff_request_id,
         status: payload.status,
       });
