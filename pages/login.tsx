@@ -37,7 +37,7 @@ export default function Login() {
                   supabaseClient={supabase}
                   appearance={{ theme: ThemeSupa }}
                   providers={[]}
-                  redirectTo={process.env.NEXT_PUBLIC_REDIRECT_URL}
+                  showLinks={false}
                 />
               </div>
             </div>
