@@ -54,11 +54,11 @@ const employeeRepository = {
       return prev.eq(key, payload[key]);
     }, builder);
 
-    const { error, data } = await builder.single();
+    const { error, data } = await builder;
 
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 
-    return data;
+    return data.length > 0 ? data[0] : null;
   },
 };
 
