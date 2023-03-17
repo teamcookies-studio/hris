@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { CustomTable } from '../../common/CustomTable';
-import { FormProfile } from '../../common/FormProfile';
+import { CustomTable } from '../../Common/CustomTable';
+// import { FormProfile } from '../../Common/FormProfile';
 import InviteEmployeeModal from './InviteEmployeeModal';
 import { ADD_EMPLOYEE, EMPLOYEE_LISTS, EMPLOYEE_NAME, INVITE_EMPLOYEE, TIMEOFF_QUOTA, TIMEOFF_TYPE, YEAR } from '../../../utils/constants';
 
@@ -84,9 +84,11 @@ export default function ListEmployees() {
           handleEdit={() => setEditOpen(prev => !prev)}
           handleDelete={() => {}}
         />
-      ) : (
-        <FormProfile handleUpdate={() => setEditOpen(prev => !prev)} />
-      )}
+      ) : null
+      // (
+      // <FormProfile handleUpdate={() => setEditOpen(prev => !prev)} />
+      // )
+      }
     </div>
   );
 }

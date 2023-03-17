@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
-import { CustomTable } from '../../../common/CustomTable';
-import { Dropdown } from '../../../common/Dropdown';
-import { SearchInput } from '../../../common/SearchInput';
+import { CustomTable } from '../../../Common/CustomTable';
+import { Dropdown } from '../../../Common/Dropdown';
+import { SearchInput } from '../../../Common/SearchInput';
 
 
 const MOCK_FILTER = [

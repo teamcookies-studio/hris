@@ -1,6 +1,6 @@
 import Admin from '../../../../layouts/Admin';
 
-import TimeoffTypesForm from '../../../../components/admin/Timeoff/Types/TimeoffTypesForm';
+import TimeoffTypesForm from '../../../../components/Admin/Timeoff/Types/TimeoffTypesForm';
 
 export default function TimeoffTypesFormPage() {
   return <TimeoffTypesForm />;

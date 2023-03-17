@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Dropdown } from '../../../common/Dropdown';
+import { Dropdown } from '../../../Common/Dropdown';
 import { MOCK_CUTI_OPTIONS } from '../constants';
 
 const TimeoffRequestForm = () => {

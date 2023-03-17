@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { CustomTable } from '../../../common/CustomTable';
+import { CustomTable } from '../../../Common/CustomTable';
 
 export const MOCK_THEAD_LEAVE_TYPE = [
   {

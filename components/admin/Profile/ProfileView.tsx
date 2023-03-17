@@ -4,7 +4,7 @@ import { Employee } from "../../../modules/employee/employee.interface";
 import employeeService from "../../../services/employee/employee.service";
 import { getAvatarByName } from "../../../utils/helpers";
 
-export default function CardProfile({
+export default function ProfileView({
   onClick,
 }) {
   const user = useUser();

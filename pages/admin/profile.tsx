@@ -1,8 +1,9 @@
 import React from 'react';
 import Admin from "../../layouts/Admin";
 
-import { FormProfile } from "../../components/common/FormProfile";
-import { CardProfile } from "../../components/common/CardProfile";
+import FormProfile from '../../components/Admin/Profile/FormProfile';
+import ProfileView from '../../components/Admin/Profile/ProfileView';
+
 
 export default function ProfilPage() {
   const [isEditView, setEditView] = React.useState(false);
@@ -17,7 +18,7 @@ export default function ProfilPage() {
         {isEditView ? (
           <FormProfile handleUpdate={toggleForm} />
         ) : (
-          <CardProfile onClick={toggleForm} />
+          <ProfileView onClick={toggleForm} />
         )}
       </div>
     </div>

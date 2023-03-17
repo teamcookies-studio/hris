@@ -1,6 +1,6 @@
 import React from 'react';
 import { MOCK_TIMEOFF_OPTIONS } from '../constants';
-import { Dropdown } from '../../../common/Dropdown';
+import { Dropdown } from '../../../Common/Dropdown';
 import Link from 'next/link';
 
 const MOCK_SET_QUOTA_BY = [

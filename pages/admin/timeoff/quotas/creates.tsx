@@ -1,6 +1,6 @@
 import Admin from "../../../../layouts/Admin";
 
-import TimeoffQuotaForm from "../../../../components/admin/Timeoff/Quotas/TimeoffQuotaForm";
+import TimeoffQuotaForm from "../../../../components/Admin/Timeoff/Quotas/TimeoffQuotaForm";
 
 export default function TimeoffQuotaFormPage() {
     return <TimeoffQuotaForm />;
