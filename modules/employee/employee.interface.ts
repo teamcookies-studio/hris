@@ -7,11 +7,12 @@ export interface Employee {
   email: string;
   gender: string;
   address: string;
-  join_date: Date;
+  join_date: string;
   office_email: string;
   report_to: string;
   role_id: string;
   client_id: string;
+  occupation: string;
   created_at: Date;
 }
 

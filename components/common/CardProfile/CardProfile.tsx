@@ -1,5 +1,6 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import React, { useCallback, useEffect, useState } from "react";
+import { Employee } from "../../../modules/employee/employee.interface";
 import employeeService from "../../../services/employee/employee.service";
 import { getAvatarByName } from "../../../utils/helpers";
 
@@ -8,15 +9,15 @@ export default function CardProfile({
 }) {
   const user = useUser();
   const supabase = useSupabaseClient();
-  const [employee, setEmployee] = useState(null);
-  const [isFetching, setIsFetching] = useState(true);
+  const [employee, setEmployee] = useState<Employee>(null);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   const fetchEmployeeByUserId = useCallback(async () => {
     if (!user) return;
 
     try {
       setIsFetching(true);
-      const response = await employeeService.getByUserId(supabase, user.id);
+      const response: Employee = await employeeService.getByUserId(supabase, user.id);
       setEmployee(response);
     } catch (e) {
       console.log(e.message);
@@ -121,85 +122,77 @@ export default function CardProfile({
             <div className="w-full px-4 text-center mt-20">
               <div className="flex-col justify-center py-4 lg:pt-4 pt-8">
                 <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                  {employee.name}
+                  {employee.name || '-'}
                 </h3>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                  Software Engineer (Frontend Web Developer)
+                  {employee.occupation || '-'}
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-wrap mt-6 md:text-center">
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Nickname
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                Aryandi
+                {employee.nickname || '-'}
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Gender
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                Male
+                {employee.gender || '-'}
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Phone Number
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                +62 080989999xxx
+                {employee.phone || '-'}
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
+                Address
+              </span>
+              <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
+                {employee.address || '-'}
+              </div>
+            </div>
+            <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Personal Email
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                testing123@gmail.com
+                {employee.email || '-'}
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Company Email
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                aryandi_ganteng99@teamcookies.studio
+                {employee.office_email || '-'}
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Join Date
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                03 Febuari 2019
+                {employee.join_date}
               </div>
             </div>
             <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Number of Kids
-              </h4>
-              <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                0
-              </div>
-            </div>
-            <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
+              <span className="font-semibold leading-normal mb-1 text-blueGray-700">
                 Martial Status
-              </h4>
+              </span>
               <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
                 Married
-              </div>
-            </div>
-            <div className="lg:w-6/12 md:w-12/12 mb-2 px-3">
-              <h4 className="text-xl font-semibold leading-normal mb-1 text-blueGray-700">
-                Address
-              </h4>
-              <div className="text-sm leading-normal mt-0 mb-1 text-blueGray-400 font-bold">
-                Jl. Dg Ramang. Perumahan Permata Sudiang Raya.
               </div>
             </div>
           </div>
