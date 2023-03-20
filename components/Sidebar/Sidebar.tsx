@@ -89,10 +89,10 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link
-                  href="/admin/profile"
+                  href="/admin/profiles"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/admin/profile") !== -1
+                    (router.pathname.indexOf("/admin/profiles") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -182,7 +182,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Employee List
+                  List
                 </Link>
               </li>
             </ul>
@@ -207,7 +207,7 @@ export default function Sidebar() {
                   }
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Types List
+                  Types
                 </Link>
               </li>
 
@@ -222,7 +222,7 @@ export default function Sidebar() {
                   }
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Quota
+                  Quotas
                 </Link>
               </li>
 
@@ -237,7 +237,7 @@ export default function Sidebar() {
                   }
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Timeoff List
+                  Requests
                 </Link>
               </li>
 

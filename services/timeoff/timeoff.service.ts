@@ -15,18 +15,26 @@ import {
   TimeoffRequestFindAllByDelegateListPayload,
   TimeoffRequestFindAllByReviewerListPayload,
   TimeoffRequestReviewPayload,
-  TimeoffTypeFindAllByClientPayload
+  TimeoffTypeFindAllByClientPayload,
 } from "./timeoff.interface";
 
 const timeoffTypeService = {
-  findAllTimeoffTypeByClient: async (supabase: SupabaseClient, payload: TimeoffTypeFindAllByClientPayload) => {
+  findAllTimeoffTypeByClient: async (
+    supabase: SupabaseClient,
+    payload: TimeoffTypeFindAllByClientPayload
+  ) => {
     return await timeoffTypeRepository.findAll(supabase, payload);
   },
-}
+};
 
 const timeoffQuotaService = {
-  createQuotaByType: async (supabase: SupabaseClient, payload: CreateQuotaByTypePayload) => {
-    const employees = await employeeRepository.findAll(supabase, { client_id: payload.client_id });
+  createQuotaByType: async (
+    supabase: SupabaseClient,
+    payload: CreateQuotaByTypePayload
+  ) => {
+    const employees = await employeeRepository.findAll(supabase, {
+      client_id: payload.client_id,
+    });
     const bulkCreatePayload = employees.map((employee) => ({
       employee_id: employee.id,
       timeoff_type_id: payload.timeoff_type_id,
@@ -35,19 +43,34 @@ const timeoffQuotaService = {
     }));
     return await timeoffQuotaRepository.bulkCreate(supabase, bulkCreatePayload);
   },
-  createQuotaByEmployee: async (supabase: SupabaseClient, payload: CreateQuotaByEmployeePayload) => {
+  createQuotaByEmployee: async (
+    supabase: SupabaseClient,
+    payload: CreateQuotaByEmployeePayload
+  ) => {
     return await timeoffQuotaRepository.create(supabase, payload);
   },
-  findOneQuotaByTypeAndEmployee: async (supabase: SupabaseClient, payload: TimeoffQuotaFindOneByTypeAndEmployeePayload) => {
+  findOneQuotaByTypeAndEmployee: async (
+    supabase: SupabaseClient,
+    payload: TimeoffQuotaFindOneByTypeAndEmployeePayload
+  ) => {
     return await timeoffQuotaRepository.findOne(supabase, payload);
   },
-  findAllQuotaByClientWithEmployee: async (supabase: SupabaseClient, payload: TimeoffQuotaFindAllEmployeePayload) => {
-    return await timeoffQuotaRepository.findAllByClient(supabase, payload.client_id);
+  findAllQuotaByClientWithEmployee: async (
+    supabase: SupabaseClient,
+    payload: TimeoffQuotaFindAllEmployeePayload
+  ) => {
+    return await timeoffQuotaRepository.findAllByClient(
+      supabase,
+      payload.client_id
+    );
   },
 };
 
 const timeoffRequestService = {
-  createRequest: async (supabase: SupabaseClient, payload: RequestTimeoffPayload) => {
+  createRequest: async (
+    supabase: SupabaseClient,
+    payload: RequestTimeoffPayload
+  ) => {
     const quota = await timeoffQuotaRepository.findOne(supabase, {
       employee_id: payload.employee_id,
       year: moment().year(),
@@ -57,10 +80,8 @@ const timeoffRequestService = {
       throw new Error();
     }
 
-    const timeoffTotalDays = moment(payload.end_date).diff(
-      moment(payload.start_date),
-      "days"
-    ) + 1;
+    const timeoffTotalDays =
+      moment(payload.end_date).diff(moment(payload.start_date), "days") + 1;
 
     if (timeoffTotalDays > quota.quota) {
       throw new Error();
@@ -77,7 +98,10 @@ const timeoffRequestService = {
 
     return result;
   },
-  reviewRequest: async (supabase: SupabaseClient, payload: TimeoffRequestReviewPayload) => {
+  reviewRequest: async (
+    supabase: SupabaseClient,
+    payload: TimeoffRequestReviewPayload
+  ) => {
     const timeoff = await timeoffRequestRepository.findOne(supabase, {
       id: payload.timeoff_request_id,
     });
@@ -97,13 +121,11 @@ const timeoffRequestService = {
       });
 
       if (!quota) {
-        throw new Error()
+        throw new Error();
       }
 
-      const timeoffTotalDays = moment(timeoff.end_date).diff(
-        moment(timeoff.start_date),
-        "days"
-      ) + 1;
+      const timeoffTotalDays =
+        moment(timeoff.end_date).diff(moment(timeoff.start_date), "days") + 1;
 
       await timeoffQuotaRepository.update(supabase, {
         id: quota.id,
@@ -118,22 +140,36 @@ const timeoffRequestService = {
 
     return result;
   },
-  findAllRequestsByClient: async (supabase: SupabaseClient, payload: TimeoffRequestFindAllByClientListPayload) => {
+  findAllRequestsByClient: async (
+    supabase: SupabaseClient,
+    payload: TimeoffRequestFindAllByClientListPayload
+  ) => {
     return await timeoffRequestRepository.findAll(supabase, {
       client_id: payload.client_id,
       status: payload.status,
     });
   },
-  findAllRequestsByReviewer: async (supabase: SupabaseClient, payload: TimeoffRequestFindAllByReviewerListPayload) => {
+  findAllRequestsByReviewer: async (
+    supabase: SupabaseClient,
+    payload: TimeoffRequestFindAllByReviewerListPayload
+  ) => {
     return await timeoffRequestRepository.findAll(supabase, {
       reviewed_by: payload.reviewer_id,
       status: payload.status,
     });
   },
-  findAllRequestsByDelegate: async (supabase: SupabaseClient, payload: TimeoffRequestFindAllByDelegateListPayload) => {
+  findAllRequestsByDelegate: async (
+    supabase: SupabaseClient,
+    payload: TimeoffRequestFindAllByDelegateListPayload
+  ) => {
     return await timeoffRequestRepository.findAll(supabase, {
       delegate_to: payload.delegate_id,
       status: payload.status,
+    });
+  },
+  findAllByStatus: async (supabase: SupabaseClient, status: TimeoffStatus) => {
+    return await timeoffRequestRepository.findAll(supabase, {
+      status,
     });
   },
 };
