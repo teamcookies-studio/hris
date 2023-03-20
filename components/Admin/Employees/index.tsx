@@ -1,56 +1,47 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { CustomTable } from '../../common/CustomTable';
-// import { FormProfile } from '../../Common/FormProfile';
+import FormProfile from '../Profile/FormProfile';
 import InviteEmployeeModal from './InviteEmployeeModal';
-import { ADD_EMPLOYEE, EMPLOYEE_LISTS, EMPLOYEE_NAME, INVITE_EMPLOYEE, TIMEOFF_QUOTA, TIMEOFF_TYPE, YEAR } from '../../../utils/constants';
-
-const MOCK_THEAD_LIST_PEGAWAI = [
-  {
-    name: 'employee_name',
-    label: EMPLOYEE_NAME,
-    value: '',
-  },
-  {
-    name: 'year',
-    label: YEAR,
-    value: '',
-  },
-  {
-    name: 'timeoff_type',
-    label: TIMEOFF_TYPE,
-    value: '',
-  },
-  {
-    name: 'timeoff_quota',
-    label: TIMEOFF_QUOTA,
-    value: '',
-  },
-]
-const MOCK_TBODY_LIST_PEGAWAI = [
-  {
-    id: 1231,
-    employee_name: 'Muhammad Aryandi',
-    year: 2022,
-    timeoff_type: 'Cuti Tahunan',
-    timeoff_quota: 2,
-  },
-  {
-    id: 2,
-    employee_name: 'Insan',
-    year: 2022,
-    timeoff_type: 'Cuti Tahunan',
-    timeoff_quota: 4,
-  },
-]
-
+import { ADD_EMPLOYEE, EMPLOYEE_LISTS, INVITE_EMPLOYEE, THEAD_LIST_PEGAWAI } from '../../../utils/constants';
+import employeeService from '../../../services/employee/employee.service';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 
 export default function ListEmployees() {
   const router = useRouter();
 
   const [isEditOpen, setEditOpen] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
+
+  const user = useUser();
+  const supabase = useSupabaseClient();
+  const [employees, setEmployees] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+
+  const fetchUsersByClientId = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      setIsFetching(true);
+      const employeeLists = await employeeService.getByUserId(supabase, user.id); 
+      const response = await employeeService.getUsersByClientId(supabase, employeeLists.client_id);
+
+      setEmployees(response);
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [supabase, user]);
+
+  useEffect(() => {
+    fetchUsersByClientId();
+  }, [fetchUsersByClientId]);
+
+  if (isFetching) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>
@@ -78,17 +69,15 @@ export default function ListEmployees() {
           )}
           hasOrderNumber
           // actionDropdown,
-          thead={MOCK_THEAD_LIST_PEGAWAI}
-          tbody={MOCK_TBODY_LIST_PEGAWAI}
+          thead={THEAD_LIST_PEGAWAI}
+          tbody={employees}
           handleView={() => router.push('profile')}
           handleEdit={() => setEditOpen(prev => !prev)}
           handleDelete={() => {}}
         />
-      ) : null
-      // (
-      // <FormProfile handleUpdate={() => setEditOpen(prev => !prev)} />
-      // )
-      }
+      ) : (
+        <FormProfile handleUpdate={() => setEditOpen(prev => !prev)} />
+      )}
     </div>
   );
 }

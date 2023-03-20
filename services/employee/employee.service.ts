@@ -9,6 +9,12 @@ const employeeService = {
   ): Promise<Employee> => {
     return await employeeRepository.findOne(supabase, { user_id: userId });
   },
+  getUsersByClientId: async (
+    supabase: SupabaseClient,
+    clientId: string
+  ): Promise<Employee[]> => {
+    return await employeeRepository.findAll(supabase, { client_id: clientId });
+  },
 };
 
 export default employeeService;
