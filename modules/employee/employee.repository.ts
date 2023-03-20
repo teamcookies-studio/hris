@@ -22,6 +22,7 @@ const employeeRepository = {
 
     return data;
   },
+
   update: async (
     supabase: SupabaseClient,
     payload: EmployeeUpdatePayload
@@ -31,14 +32,17 @@ const employeeRepository = {
       .from("employees")
       .update(others)
       .eq("id", id)
-      .select()
-      .single();
+      .select();
 
     if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
 
-    return data;
+    return data.length > 0 ? data[0] : null;
   },
-  findAll: async (supabase: SupabaseClient, payload: EmployeeFindAllPayload): Promise<Employee[]> => {
+
+  findAll: async (
+    supabase: SupabaseClient,
+    payload: EmployeeFindAllPayload
+  ): Promise<Employee[]> => {
     let builder = supabase.from("employees").select("*").range(0, 10);
 
     builder = Object.keys(payload).reduce((prev, key) => {

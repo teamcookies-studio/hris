@@ -1,5 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Employee } from "../../modules/employee/employee.interface";
+import {
+  Employee,
+  EmployeeUpdatePayload,
+} from "../../modules/employee/employee.interface";
 import employeeRepository from "../../modules/employee/employee.repository";
 
 const employeeService = {
@@ -8,6 +11,13 @@ const employeeService = {
     userId: string
   ): Promise<Employee> => {
     return await employeeRepository.findOne(supabase, { user_id: userId });
+  },
+
+  updateProfile: async (
+    supabase: SupabaseClient,
+    payload: EmployeeUpdatePayload
+  ): Promise<Employee> => {
+    return await employeeRepository.update(supabase, payload);
   },
 };
 

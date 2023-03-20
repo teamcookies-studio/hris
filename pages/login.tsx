@@ -16,7 +16,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      router.push('admin/profile');
+      router.push('admin/profiles');
     }
   }, [user, router]);
 
