@@ -182,7 +182,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Employee List
+                  List
                 </Link>
               </li>
             </ul>
@@ -207,7 +207,7 @@ export default function Sidebar() {
                   }
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Types List
+                  Types
                 </Link>
               </li>
 
@@ -222,7 +222,7 @@ export default function Sidebar() {
                   }
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Quota
+                  Quotas
                 </Link>
               </li>
 
@@ -237,7 +237,7 @@ export default function Sidebar() {
                   }
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Timeoff List
+                  Requests
                 </Link>
               </li>
 
