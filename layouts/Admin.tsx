@@ -4,18 +4,19 @@ import AdminNavbar from "../components/Navbars/AdminNavbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HeaderStats from "../components/Headers/HeaderStats";
 // import FooterAdmin from "../components/Footers/FooterAdmin";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUser, useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
 export default function Admin({ children }) {
   const router = useRouter();
   const user = useUser();
+  const { isLoading } = useSessionContext() || {};
 
   const handleUser = useCallback(() => {
-    if (!user) {
+    if (!isLoading && !user) {
       router.push("/");
     }
-  }, [user, router]);
+  }, [user, router, isLoading]);
 
   useEffect(() => {
     handleUser();
