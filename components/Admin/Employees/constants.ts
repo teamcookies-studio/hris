@@ -1,3 +1,5 @@
+import { EMPLOYEE_NAME, GENDER, JOIN_DATE, OCCUPATION, PHONE } from "../../../utils/constants"
+
 export const MOCK_THEAD = [
   {
     name: 'timeoff_type_lists',
@@ -20,5 +22,34 @@ export const MOCK_TBODY = [
     id: 4352,
     timeoff_type_lists: 'Cuti Umroh',
     timeoff_type_status: 'In Review',
+  },
+]
+
+
+export const EMPLOYEE_TABLE_HEADER = [
+  {
+    name: 'name',
+    label: EMPLOYEE_NAME,
+    value: '',
+  },
+  {
+    name: 'join_date',
+    label: JOIN_DATE,
+    value: '',
+  },
+  {
+    name: 'gender',
+    label: GENDER,
+    value: '',
+  },
+  {
+    name: 'occupation',
+    label: OCCUPATION,
+    value: '',
+  },
+  {
+    name: 'phone',
+    label: PHONE,
+    value: '',
   },
 ]

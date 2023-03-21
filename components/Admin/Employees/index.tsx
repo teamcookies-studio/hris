@@ -2,11 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { CustomTable } from '../../common/CustomTable';
-import FormProfile from '../Profile/FormProfile';
+// import FormProfile from '../Profile/FormProfile';
 import InviteEmployeeModal from './InviteEmployeeModal';
-import { ADD_EMPLOYEE, EMPLOYEE_LISTS, INVITE_EMPLOYEE, THEAD_LIST_PEGAWAI } from '../../../utils/constants';
+import { ADD_EMPLOYEE, EMPLOYEE_LISTS, INVITE_EMPLOYEE } from '../../../utils/constants';
 import employeeService from '../../../services/employee/employee.service';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { EMPLOYEE_TABLE_HEADER } from './constants';
 
 export default function ListEmployees() {
   const router = useRouter();
@@ -69,15 +70,17 @@ export default function ListEmployees() {
           )}
           hasOrderNumber
           // actionDropdown,
-          thead={THEAD_LIST_PEGAWAI}
+          thead={EMPLOYEE_TABLE_HEADER}
           tbody={employees}
           handleView={() => router.push('profile')}
           handleEdit={() => setEditOpen(prev => !prev)}
           handleDelete={() => {}}
         />
-      ) : (
-        <FormProfile handleUpdate={() => setEditOpen(prev => !prev)} />
-      )}
+      ) : null
+      // (
+      //   <FormProfile handleUpdate={() => setEditOpen(prev => !prev)} />
+      // )
+      }
     </div>
   );
 }

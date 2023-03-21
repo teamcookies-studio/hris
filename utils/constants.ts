@@ -9,31 +9,3 @@ export const GENDER = 'gender';
 export const OCCUPATION = 'occupation';
 export const JOIN_DATE = 'Join Date';
 export const PHONE = 'Phone';
-
-export const THEAD_LIST_PEGAWAI = [
-  {
-    name: 'name',
-    label: EMPLOYEE_NAME,
-    value: '',
-  },
-  {
-    name: 'join_date',
-    label: JOIN_DATE,
-    value: '',
-  },
-  {
-    name: 'gender',
-    label: GENDER,
-    value: '',
-  },
-  {
-    name: 'occupation',
-    label: OCCUPATION,
-    value: '',
-  },
-  {
-    name: 'phone',
-    label: PHONE,
-    value: '',
-  },
-]
