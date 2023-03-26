@@ -32,6 +32,10 @@ export default function ProfileUpdate() {
   const updateProfile = async () => {
     try {
       setIsFetching(true);
+      const response: Employee = await employeeService.updateProfile(supabase, {
+        id: employee.id,
+      });
+
       if (!isPersonalProfile) {
         router.push("/admin/employees/list");
       } else {
