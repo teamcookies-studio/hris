@@ -9,6 +9,9 @@ interface CustomTableProps {
   tbody ?: any,
   hasOrderNumber ?: any,
   handleView ?: any,
+  showViewOptions ?: any,
+  showEditOptions ?: any,
+  showDeleteOptions ?: any,
   handleEdit ?: any,
   handleDelete ?: any,
 }
@@ -20,6 +23,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
   hasOrderNumber,
   thead,
   tbody,
+  showViewOptions,
+  showEditOptions,
+  showDeleteOptions,
   handleView,
   handleEdit,
   handleDelete,
@@ -67,7 +73,15 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   </th>
                 ))}
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                  <TableDropdown id={data.user_id} handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete} />
+                  <TableDropdown
+                    id={data.user_id}
+                    showViewOptions={showViewOptions}
+                    showEditOptions={showEditOptions}
+                    showDeleteOptions={showDeleteOptions}
+                    handleView={handleView}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                  />
                 </td>
               </tr>
             ))}

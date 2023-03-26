@@ -1,7 +1,20 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-const TimeoffTypesForm = () => {
+interface TimeoffTypesFormProps {
+  id: string;
+  type: any;
+  handleUpdate?: any;
+}
+
+const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = null, handleUpdate }) => {
+  const router = useRouter();
+  const handleCreate = () => {
+    // Supabase goes here;
+    router.push('/admin/timeoff/types');
+  }
+
   return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
     <div className="rounded-t bg-white mb-0 px-6 py-6">
       <div className="text-center flex justify-between">
@@ -13,12 +26,18 @@ const TimeoffTypesForm = () => {
           >
             Cancel
           </Link>
-          <Link
+          {/* <Link
             href="/admin/timeoff/types"
             className="bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
           >
-            Update Timeoff
-          </Link>
+            {id ? 'Update' : 'Create'} Timeoff
+          </Link> */}
+          <button
+            className="cursor-pointer bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            onClick={() => id ? handleUpdate?.(id) : handleCreate?.()}
+          >
+            {id ? 'Update' : 'Create'} Timeoff
+          </button>
         </div>
       </div>
     </div>
@@ -36,7 +55,8 @@ const TimeoffTypesForm = () => {
               <input
                 type="text"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue="E.g. cuti sakit, cuti hamil, cuti nikah, cuti apapun, etc."
+                placeholder="E.g. cuti sakit, cuti hamil, cuti nikah, cuti apapun, etc."
+                defaultValue={type?.label || ''}
               />
             </div>
           </div>
@@ -52,7 +72,8 @@ const TimeoffTypesForm = () => {
               <textarea
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 rows={4}
-                defaultValue="Description."
+                placeholder="Description."
+                defaultValue={type?.description || ''}
               ></textarea>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import employeeService from '../../../../services/employee/employee.service';
 import timeoffService from '../../../../services/timeoff/timeoff.service';
@@ -14,19 +15,20 @@ const headerLabels = [
 
 export default function TimeoffList() {
   const user = useUser();
+  const router = useRouter();
   const supabase = useSupabaseClient();
   const [types, setTypes] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
-
+  console.log('types', types);
   const fetchTimeoffTypesByClientId = useCallback(async () => {
     if (!user) return;
 
     try {
       setIsFetching(true);
       const employee = await employeeService.getByUserId(supabase, user.id); 
-      const response = await timeoffService.findAllTimeoffTypeByClient(supabase, { client_id: employee.client_id });
-
-      setTypes(response);
+      const response: any = await timeoffService.findAllTimeoffTypeByClient(supabase, { client_id: employee.client_id });
+      console.log('response', response);
+      setTypes(response.map(data => ({ user_id: data?.id, ...data})));
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -37,6 +39,8 @@ export default function TimeoffList() {
   useEffect(() => {
     fetchTimeoffTypesByClientId();
   }, [fetchTimeoffTypesByClientId]);
+
+  if (!types) return null;
 
   return (
     <div>
@@ -53,9 +57,12 @@ export default function TimeoffList() {
           </>
         )}
         hasOrderNumber
+        showViewOptions={false}
         // actionDropdown,
         thead={headerLabels}
         tbody={types || []}
+        handleEdit={id => router.push(`/admin/timeoff/types/${id}`)}
+        handleDelete={() => {}}
       />
     </div>
   );

@@ -2,16 +2,22 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 
 interface NotificationDropdownProps {
-  handleView: (id: string) => void,
-  handleEdit: (id: string) => void,
-  handleDelete: (id: string) => void,
-  id: string,
+  handleView: (id: string) => void;
+  handleEdit: (id: string) => void;
+  handleDelete: (id: string) => void;
+  id: string;
+  showViewOptions?: boolean;
+  showEditOptions?: boolean;
+  showDeleteOptions?: boolean;
 }
 
 const NotificationDropdown: FC<NotificationDropdownProps> = ({
   handleView,
   handleEdit,
   handleDelete,
+  showViewOptions = true,
+  showEditOptions = true,
+  showDeleteOptions = true,
   id,
 }) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
@@ -54,39 +60,45 @@ const NotificationDropdown: FC<NotificationDropdownProps> = ({
           "absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 right-2-rem"
         }
       >
-        <a
-          className={
-            "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-blueGray-800"
-          }
-          onClick={() => {
-            handleView?.(id)
-            setDropdownPopoverShow(false)
-          }}
-        >
-          View
-        </a>
-        <a
-          className={
-            "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={() => {
-            handleEdit?.(id)
-            setDropdownPopoverShow(false)
-          }}
-        >
-          Edit
-        </a>
-        <a
-          className={
-            "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={() => {
-            handleDelete?.(id)
-            setDropdownPopoverShow(false)
-          }}
-        >
-          Delete
-        </a>
+        {showViewOptions && (
+          <a
+            className={
+              "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-blueGray-800"
+            }
+            onClick={() => {
+              handleView?.(id)
+              setDropdownPopoverShow(false)
+            }}
+          >
+            View
+          </a>
+        )}
+        {showEditOptions && (
+          <a
+            className={
+              "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+            onClick={() => {
+              handleEdit?.(id)
+              setDropdownPopoverShow(false)
+            }}
+          >
+            Edit
+          </a>
+        )}
+        {showDeleteOptions && (
+          <a
+            className={
+              "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+            onClick={() => {
+              handleDelete?.(id)
+              setDropdownPopoverShow(false)
+            }}
+          >
+            Delete
+          </a>
+        )}
         {/* <a
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"

@@ -25,6 +25,12 @@ const timeoffTypeService = {
   ) => {
     return await timeoffTypeRepository.findAll(supabase, payload);
   },
+  findTimeoffTypeById: async (
+    supabase: SupabaseClient,
+    payload: TimeoffTypeFindAllByClientPayload
+  ) => {
+    return await timeoffTypeRepository.findOne(supabase, payload);
+  },
 };
 
 const timeoffQuotaService = {
