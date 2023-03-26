@@ -11,29 +11,32 @@ export default function ProfileUpdate() {
   const supabase = useSupabaseClient();
   const [employee, setEmployee] = useState<Employee>(null);
   const [isFetching, setIsFetching] = useState<boolean>(true);
+  
+  const { id } = router.query as { id: string | null };
+  const isPersonalProfile = router.pathname.includes('profile');
 
   const fetchEmployeeByUserId = useCallback(async () => {
     if (!user) return;
 
     try {
       setIsFetching(true);
-      const response: Employee = await employeeService.getByUserId(supabase, user.id);
+      const response: Employee = await employeeService.getByUserId(supabase, !isPersonalProfile ? id : user.id);
       setEmployee(response);
     } catch (e) {
       console.log(e.message);
     } finally {
       setIsFetching(false);
     }
-  }, [supabase, user]);
+  }, [supabase, user, id]);
 
   const updateProfile = async () => {
     try {
       setIsFetching(true);
-      const response: Employee = await employeeService.updateProfile(supabase, {
-        id: employee.id,
-      });
-
-      router.push("/admin/profiles");
+      if (!isPersonalProfile) {
+        router.push("/admin/employees/list");
+      } else {
+        router.push("/admin/profiles");
+      }
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -64,12 +67,13 @@ export default function ProfileUpdate() {
         <div className="text-sm leading-normal mt-0 mb-4 text-blueGray-400 font-bold uppercase">
           Employee Not Found
         </div>
-        <Link href="/admin/profiles">
+        <Link href={isPersonalProfile ? '/admin/employees/list' : '/admin/profiles'}>
           <button
             className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
             type="button"
           >
-            Back to My Profile
+            
+            Back to {isPersonalProfile ? 'Employee Lists' : 'My Profile'}
           </button>
         </Link>
       </div>
@@ -83,7 +87,7 @@ export default function ProfileUpdate() {
           <div className="text-center flex justify-between">
             <h6 className="text-blueGray-700 text-xl font-bold">My Account</h6>
             <div>
-              <Link href="/admin/profiles">
+              <Link href={!isPersonalProfile ? '/admin/employees/list' : '/admin/profiles'}>
                 <button
                   className="font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 ease-linear transition-all duration-150"
                   type="button"

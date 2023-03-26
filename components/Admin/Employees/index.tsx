@@ -72,9 +72,9 @@ export default function ListEmployees() {
           // actionDropdown,
           thead={EMPLOYEE_TABLE_HEADER}
           tbody={employees}
-          handleView={() => router.push('profile')}
-          handleEdit={() => setEditOpen(prev => !prev)}
-          handleDelete={() => {}}
+          handleView={id => router.push(`/admin/employees/${id}`)}
+          handleEdit={id => router.push(`/admin/employees/edit/${id}`)}
+          handleDelete={id => console.log(id)}
         />
       ) : null
       // (
