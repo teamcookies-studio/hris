@@ -9,3 +9,5 @@ export const GENDER = 'gender';
 export const OCCUPATION = 'occupation';
 export const JOIN_DATE = 'Join Date';
 export const PHONE = 'Phone';
+
+export const DEFAULT_LIMIT = 999;
