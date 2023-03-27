@@ -50,7 +50,7 @@ export default function TimeoffQuotaList() {
       const employee = await employeeService.getByUserId(supabase, user.id); 
       const response = await timeoffService.findAllQuotaByClientWithEmployee(supabase, { client_id: employee.client_id });
 
-      setQuotas(response);
+      setQuotas(response.map(data => ({ user_id: data.id, ...data })));
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -81,6 +81,8 @@ export default function TimeoffQuotaList() {
           </>
         )}
         hasOrderNumber
+        showViewOptions={false}
+        // handleEdit={id => }
         // actionDropdown,
         thead={headerLabels}
         tbody={quotas || []}

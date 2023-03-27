@@ -19,7 +19,6 @@ export default function TimeoffList() {
   const supabase = useSupabaseClient();
   const [types, setTypes] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
-  console.log('types', types);
   const fetchTimeoffTypesByClientId = useCallback(async () => {
     if (!user) return;
 
@@ -27,7 +26,7 @@ export default function TimeoffList() {
       setIsFetching(true);
       const employee = await employeeService.getByUserId(supabase, user.id); 
       const response: any = await timeoffService.findAllTimeoffTypeByClient(supabase, { client_id: employee.client_id });
-      console.log('response', response);
+
       setTypes(response.map(data => ({ user_id: data?.id, ...data})));
     } catch (e) {
       console.log(e.message);

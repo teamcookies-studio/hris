@@ -1,7 +1,8 @@
 import React from 'react';
-import { MOCK_TIMEOFF_OPTIONS } from '../constants';
-import { Dropdown } from '../../../Common/Dropdown';
 import Link from 'next/link';
+
+import { MOCK_TIMEOFF_OPTIONS } from '../constants';
+import { Dropdown } from '../../../common/Dropdown';
 
 const MOCK_SET_QUOTA_BY = [
   { value: 'by_employee', label: 'By Employee' },
