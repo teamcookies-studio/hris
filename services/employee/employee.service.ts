@@ -29,6 +29,13 @@ const employeeService = {
     return await employeeRepository.create(supabase, payload);
   },
 
+  findAllByClientId: async (
+    supabase: SupabaseClient,
+    clientId: string
+  ): Promise<Employee[]> => {
+    return await employeeRepository.findAll(supabase, { client_id: clientId });
+  },
+
   updateProfile: async (
     supabase: SupabaseClient,
     payload: EmployeeUpdatePayload

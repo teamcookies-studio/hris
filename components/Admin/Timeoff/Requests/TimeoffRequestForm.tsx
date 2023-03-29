@@ -1,8 +1,62 @@
+import React from 'react';
+import { useCallback, useEffect, useState } from "react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
+import moment from "moment";
 import { Dropdown } from "../../../common/Dropdown";
+import employeeService from "../../../../services/employee/employee.service";
+import timeoffService from "../../../../services/timeoff/timeoff.service";
 
-const TimeoffRequestForm = () => {
-  return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+export default function TimeoffRequestForm() {
+  const user = useUser();
+  const supabase = useSupabaseClient();
+  const [requester, setRequester] = useState(null);
+  const [types, setTypes] = useState(null);
+  const [employees, setEmployees] = useState(null);
+
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedDelegate, setSelectedDelegate] = useState(null);
+  const [selectedStartDate, setSelectedStartDate] = useState(moment().format('Y-MM-DD'));
+  const [selectedEndDate, setSelectedEndDate] = useState(moment().format('Y-MM-DD'));
+
+  const [isFetching, setIsFetching] = useState(true);
+
+  const fetchRequiredData = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      setIsFetching(true);
+      const employee = await employeeService.getByUserId(supabase, user.id);
+      const timeoffTypesResponse = await timeoffService.findAllTimeoffTypeByClient(supabase, { client_id: employee.client_id });
+      const employeesResponse = await employeeService.findAllByClientId(supabase, employee.client_id);
+
+      setRequester(employee);
+      setTypes(timeoffTypesResponse);
+      setEmployees(employeesResponse);
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [supabase, user]);
+
+  useEffect(() => {
+    fetchRequiredData();
+  }, [fetchRequiredData]);
+
+  const submit = useCallback(async () => {
+    await timeoffService.createRequest(supabase, {
+      delegate_to: selectedDelegate,
+      employee_id: requester.id,
+      start_date: moment(selectedStartDate).toDate(),
+      end_date: moment(selectedEndDate).toDate(),
+      reviewed_by: requester.report_to,
+      timeoff_type_id: selectedType,
+    })
+  }, [supabase, user]);
+
+  return ( 
+  <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
     <div className="rounded-t bg-white mb-0 px-6 py-6">
       <div className="text-center flex justify-between">
         <h6 className="text-blueGray-700 font-bold">Form Pengajuan</h6>
@@ -37,7 +91,7 @@ const TimeoffRequestForm = () => {
                 Timeoff Type
               </label>
               <div className="relative w-full lg:max-w-sm">
-                <Dropdown className="w-full" options={[{value: 'cuti_sakit', label: 'Cuti Sakit'}]} value={`cuti_sakit`} handleChange={() => { }} />
+                <Dropdown className="w-full" options={types.map((val) => ({value: val.id, label: val.label}))} value={1} handleChange={(val) => {setSelectedType(val)}} />
               </div>
             </div>
           </div>
@@ -59,7 +113,8 @@ const TimeoffRequestForm = () => {
               <input
                 type="date"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue=""
+                defaultValue={moment().year()}
+                onChange={(val) => setSelectedStartDate(val.target.value)}
               />
             </div>
           </div>
@@ -74,7 +129,8 @@ const TimeoffRequestForm = () => {
               <input
                 type="date"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue="2022"
+                defaultValue={moment().year()}
+                onChange={(val) => setSelectedStartDate(val.target.value)}
               />
             </div>
           </div>
@@ -89,13 +145,11 @@ const TimeoffRequestForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                Delegasi ke (Employee)
+                Delegasi Ke
               </label>
-              <input
-                type="text"
-                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue="Lorem Ipsum"
-              />
+              <div className="relative w-full lg:max-w-sm">
+                <Dropdown className="w-full" options={employees.map((val) => ({value: val.id, label: val.name}))} value={1} handleChange={(val) => {setSelectedDelegate(val)}} />
+              </div>
             </div>
           </div>
         </div>
@@ -115,9 +169,21 @@ const TimeoffRequestForm = () => {
             ></textarea>
           </div>
         </div>
+
+        <div className="rounded-t bg-white mb-0 px-6 py-6">
+          <div className="text-center flex justify-between">
+            <button
+              className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={submit}   
+              >
+              Simpan
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
+  );
 }
 
-export default TimeoffRequestForm;
