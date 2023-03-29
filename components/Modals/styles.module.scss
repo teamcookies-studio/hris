@@ -1,0 +1,25 @@
+.Modal__wrapper {
+  background: #0000004d;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  left: 0;
+  height: 100%;
+}
+.Modal__formWrapper {
+  padding: 16px;
+  gap: 12px;
+  width: 500px;
+  max-width: 80%;
+}
+.Modal__formHeader {
+  display: flex;
+  align-items: center;
+}
+.Modal__formInput {
+  position: relative;
+}
+.Modal__formAction {
+
+}

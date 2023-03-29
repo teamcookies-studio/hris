@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { MOCK_TIMEOFF_OPTIONS } from '../constants';
 import { Dropdown } from '../../../common/Dropdown';
+import { Employee } from '../../../../modules/employee/employee.interface';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { useRouter } from 'next/router';
+import employeeService from '../../../../services/employee/employee.service';
+import timeoffService from '../../../../services/timeoff/timeoff.service';
 
 const MOCK_SET_QUOTA_BY = [
   { value: 'by_employee', label: 'By Employee' },
   { value: 'by_timeoff_type', label: 'By Timeoff Type' },
-]
-
-const MOCK_EMPLOYEE_NAME = [
-  { value: 1, label: 'Muhammad Aryandi' },
-  { value: 2, label: 'Mas Insan' },
-  { value: 3, label: 'Mas Fari' },
-  { value: 4, label: 'Mas Kris' },
-  { value: 5, label: 'Mba Gema' },
 ]
 
 const MOCK_YEAR = [
@@ -23,7 +20,55 @@ const MOCK_YEAR = [
 ]
 
 const TimeoffQuotaForm = () => {
-  const [optionTimeoffType, setOptionTimeoffType] = React.useState('byEmployee');
+  const router = useRouter();
+  const user = useUser();
+  const supabase = useSupabaseClient();
+  const [employeeList, setEmployeeLists] = useState([]);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [types, setTypes] = useState([]);
+  const [optionTimeoffType, setOptionTimeoffType] = useState('by_employee');
+
+  const isEditSection = router.pathname.includes('quotas/edit');
+
+  const fetchEmployeeByUserId = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      setIsFetching(true);
+      const employeeLists = await employeeService.getByUserId(supabase, user.id); 
+      const response = await employeeService.getUsersByClientId(supabase, employeeLists.client_id);
+      const employee = response.map(data => ({ value: data.id, label: data.name }))
+      setEmployeeLists(employee);
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [supabase, user]);
+
+
+
+  const fetchTimeoffTypesByClientId = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      setIsFetching(true);
+      const employee = await employeeService.getByUserId(supabase, user.id); 
+      const response: any = await timeoffService.findAllTimeoffTypeByClient(supabase, { client_id: employee.client_id });
+      const typeMap = response.map(data => ({ value: data.id, label: data.label }))
+
+      setTypes(typeMap);
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [supabase, user]);
+
+  useEffect(() => {
+    fetchEmployeeByUserId();
+    fetchTimeoffTypesByClientId();
+  }, [fetchTimeoffTypesByClientId, fetchEmployeeByUserId]);
 
   return <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
     <div className="rounded-t mb-0 px-6 py-6 border-0">
@@ -33,7 +78,7 @@ const TimeoffQuotaForm = () => {
             Employee Quota Lists
           </h3>
         </div>
-        {false ? (
+        {isEditSection ? (
           <>
             <Link
               href="/admin/timeoff/quotas"
@@ -42,19 +87,27 @@ const TimeoffQuotaForm = () => {
               Cancel
             </Link>
             <Link
-              href="/admin/timeoff/quotas/updates/1"
+              href="/admin/timeoff/quotas"
               className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
             >
               Update Quota
             </Link>
           </>
         ) : (
-          <Link
-            href="/admin/timeoff/quotas"
-            className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-          >
-            Set Quota
-          </Link>
+          <>
+            <Link
+              href="/admin/timeoff/quotas"
+              className="bg-red-500 active:bg-red-700 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            >
+              Cancel
+            </Link>
+            <Link
+              href="/admin/timeoff/quotas"
+              className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            >
+              Set Quota
+            </Link>
+          </>
         )}
       </div>
     </div>
@@ -63,13 +116,12 @@ const TimeoffQuotaForm = () => {
         <div className="relative w-full lg:max-w-sm px-4 mb-3">
           <Dropdown
             options={MOCK_SET_QUOTA_BY}
-            value={`by_employee`}
+            value={optionTimeoffType}
             className="w-full"
             handleChange={e => setOptionTimeoffType(e.target.value)}
           />
-
         </div>
-        {optionTimeoffType === 'byEmployee' && (
+        {optionTimeoffType === 'by_employee' && (
           <div className="flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4">
               <div className="relative w-full mb-3">
@@ -80,7 +132,7 @@ const TimeoffQuotaForm = () => {
                   Select Name
                 </label>
                 <div className="relative w-full lg:max-w-sm">
-                  <Dropdown className='w-full' options={MOCK_EMPLOYEE_NAME} value={1} />
+                  <Dropdown className='w-full' options={employeeList} value={null} />
                 </div>
               </div>
             </div>
@@ -96,7 +148,7 @@ const TimeoffQuotaForm = () => {
                 Timeoff Type
               </label>
               <div className="relative w-full lg:max-w-sm">
-                <Dropdown className='w-full' options={MOCK_TIMEOFF_OPTIONS} value={`cuti_sakit`} />
+                <Dropdown className='w-full' options={types} value={null} />
               </div>
             </div>
           </div>

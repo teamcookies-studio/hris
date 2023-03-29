@@ -11,7 +11,7 @@ export default function TimeoffTypesEditForm(){
   const user = useUser();
   const router = useRouter();
   const supabase = useSupabaseClient();
-  const [type, setType] = useState(null);
+  const [type, setType] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
   const { id } = router.query as { id: string | null };
@@ -21,8 +21,8 @@ export default function TimeoffTypesEditForm(){
 
     try {
       setIsFetching(true);
-      const response = await timeoffService.findTimeoffTypeById(supabase, { id });
-      console.log('response12', response)
+      const response: any = await timeoffService.findTimeoffTypeById(supabase, { id });
+
       setType(response);
     } catch (e) {
       console.log(e.message);

@@ -1,6 +1,7 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import employeeService from '../../../../services/employee/employee.service';
 import timeoffService from '../../../../services/timeoff/timeoff.service';
 import { CustomTable } from '../../../common/CustomTable';
@@ -38,6 +39,7 @@ const headerLabels = [
 
 export default function TimeoffQuotaList() {
   const user = useUser();
+  const router = useRouter();
   const supabase = useSupabaseClient();
   const [quotas, setQuotas] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
@@ -82,7 +84,7 @@ export default function TimeoffQuotaList() {
         )}
         hasOrderNumber
         showViewOptions={false}
-        // handleEdit={id => }
+        handleEdit={id => router.push(`/admin/timeoff/quotas/edit/${id}`)}
         // actionDropdown,
         thead={headerLabels}
         tbody={quotas || []}

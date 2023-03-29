@@ -1,7 +1,36 @@
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
+import employeeService from "../../../../services/employee/employee.service";
+import timeoffService from "../../../../services/timeoff/timeoff.service";
 import { Dropdown } from "../../../common/Dropdown";
 
-const TimeoffRequestForm = () => {
+const SubmissionForm = () => {
+  const user = useUser();
+  const router = useRouter();
+  const supabase = useSupabaseClient();
+  const [types, setTypes] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const fetchTimeoffTypesByClientId = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      setIsFetching(true);
+      const employee = await employeeService.getByUserId(supabase, user.id); 
+      const response: any = await timeoffService.findAllTimeoffTypeByClient(supabase, { client_id: employee.client_id });
+
+      setTypes(response.map(data => ({ value: data?.id, label: data.label })));
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [supabase, user]);
+
+  useEffect(() => {
+    fetchTimeoffTypesByClientId();
+  }, [fetchTimeoffTypesByClientId]);
   return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
     <div className="rounded-t bg-white mb-0 px-6 py-6">
       <div className="text-center flex justify-between">
@@ -37,7 +66,7 @@ const TimeoffRequestForm = () => {
                 Timeoff Type
               </label>
               <div className="relative w-full lg:max-w-sm">
-                <Dropdown className="w-full" options={[{value: 'cuti_sakit', label: 'Cuti Sakit'}]} value={`cuti_sakit`} handleChange={() => { }} />
+                <Dropdown className="w-full" options={types} value={null} handleChange={() => { }} />
               </div>
             </div>
           </div>
@@ -59,7 +88,6 @@ const TimeoffRequestForm = () => {
               <input
                 type="date"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue=""
               />
             </div>
           </div>
@@ -74,7 +102,6 @@ const TimeoffRequestForm = () => {
               <input
                 type="date"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue="2022"
               />
             </div>
           </div>
@@ -94,7 +121,7 @@ const TimeoffRequestForm = () => {
               <input
                 type="text"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue="Lorem Ipsum"
+                placeholder="Delegate to Employee"
               />
             </div>
           </div>
@@ -111,7 +138,7 @@ const TimeoffRequestForm = () => {
             <textarea
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               rows={4}
-              defaultValue="Lorem Ipsum, Dolor"
+              placeholder="Input Notes"
             ></textarea>
           </div>
         </div>
@@ -120,4 +147,4 @@ const TimeoffRequestForm = () => {
   </div>
 }
 
-export default TimeoffRequestForm;
+export default SubmissionForm;
