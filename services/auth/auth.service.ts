@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import authRepository from "../../modules/auth/auth.repository";
-import { RegisterUserPayload } from "../../modules/auth/auth.interface";
+import { InviteUserPayload, RegisterUserPayload } from "../../modules/auth/auth.interface";
 import clientRepository from "../../modules/client/client.repository";
 import employeeRepository from "../../modules/employee/employee.repository";
 import roleRepository from "../../modules/role/role.repository";
@@ -44,6 +44,30 @@ export const authService = {
         client,
         employee,
       };
+    }
+
+    return null;
+  },
+  invite: async (
+    supabaseClient: SupabaseClient,
+    payload: InviteUserPayload,
+  ) => {
+    const { error, data } = await supabaseClient.auth.admin.inviteUserByEmail(payload.email);
+    if (!error) {
+      const { user } = data;
+
+      const role = await roleRepository.findOne(supabaseClient, {
+        label: payload.role,
+      });
+
+      const employee = await employeeRepository.create(supabaseClient, {
+        name: payload.name,
+        user_id: user.id,
+        role_id: role.id,
+        client_id: payload.client_id,
+      });
+
+      return employee;
     }
 
     return null;

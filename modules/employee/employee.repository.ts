@@ -56,6 +56,7 @@ const employeeRepository = {
 
     return data;
   },
+
   findOne: async (
     supabase: SupabaseClient,
     payload: Partial<Employee>
