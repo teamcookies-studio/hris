@@ -42,8 +42,9 @@ export default function TimeoffQuotaList() {
   const user = useUser();
   const router = useRouter();
   const supabase = useSupabaseClient();
-  const [quotas, setQuotas] = useState(null);
-  const [isFetching, setIsFetching] = useState(true);
+  const [quotas, setQuotas] = useState([]);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [selectedDeleteData, setSelectedDeleteData] = useState(null)
 
   const fetchTimeoffQuotasByClientId = useCallback(async () => {
     if (!user) return;
@@ -65,8 +66,21 @@ export default function TimeoffQuotaList() {
     fetchTimeoffQuotasByClientId();
   }, [fetchTimeoffQuotasByClientId]);
 
+  const handleClose = () => {
+    setSelectedDeleteData(null)
+  }
+
+  const handleDelete = () => {
+    // sopabase goes here
+    setSelectedDeleteData(null)
+  }
+
+  if (isFetching) {
+    return <div>Loading...</div>
+  }
+
   return (
-    <div>
+    <>
       <CustomTable
         tableTitle="Timeoff Quota"
         tableAction={() => (
@@ -86,11 +100,19 @@ export default function TimeoffQuotaList() {
         hasOrderNumber
         showViewOptions={false}
         handleEdit={id => router.push(`/admin/timeoff/quotas/edit/${id}`)}
+        handleDelete={id => setSelectedDeleteData(id)}
         // actionDropdown,
         thead={headerLabels}
         tbody={quotas || []}
       />
-      <Modals handleClose={() => {}} handleDelete={() => {}} />
-    </div>
+      {selectedDeleteData && (
+        <Modals
+          title="Delete Modals"
+          description="Are You Sure To Delete This ?"
+          handleClose={handleClose}
+          handleDelete={handleDelete}
+        />
+      )}
+    </>
   );
 }

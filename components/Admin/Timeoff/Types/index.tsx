@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import employeeService from '../../../../services/employee/employee.service';
 import timeoffService from '../../../../services/timeoff/timeoff.service';
 import { CustomTable } from '../../../common/CustomTable';
+import { Modals } from '../../../Modals';
 
 const headerLabels = [
   {
@@ -19,6 +20,7 @@ export default function TimeoffList() {
   const supabase = useSupabaseClient();
   const [types, setTypes] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [selectedDeleteData, setSelectedDeleteData] = useState(null)
   const fetchTimeoffTypesByClientId = useCallback(async () => {
     if (!user) return;
 
@@ -40,6 +42,13 @@ export default function TimeoffList() {
   }, [fetchTimeoffTypesByClientId]);
 
   if (!types) return null;
+  const handleClose = () => {
+    setSelectedDeleteData(null)
+  }
+  const handleDelete = () => {
+    // supabase works here
+    setSelectedDeleteData(null)
+  }
 
   return (
     <div>
@@ -61,8 +70,16 @@ export default function TimeoffList() {
         thead={headerLabels}
         tbody={types || []}
         handleEdit={id => router.push(`/admin/timeoff/types/${id}`)}
-        handleDelete={() => {}}
+        handleDelete={id => setSelectedDeleteData(id)}
       />
+      {selectedDeleteData && (
+        <Modals
+          title="Delete Modals"
+          description="Are You Sure To Delete This ?"
+          handleClose={handleClose}
+          handleDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }
