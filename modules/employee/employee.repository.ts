@@ -72,6 +72,18 @@ const employeeRepository = {
 
     return data.length > 0 ? data[0] : null;
   },
+
+  delete: async (supabase: SupabaseClient, id: string): Promise<boolean> => {
+    const { error } = await supabase
+      .from("employees")
+      .delete()
+      .eq("id", id)
+      .select();
+
+    if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
+
+    return true;
+  },
 };
 
 export default employeeRepository;
