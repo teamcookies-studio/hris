@@ -2,15 +2,20 @@ import React, { useRef, useState } from 'react';
 import cx from 'classnames';
 
 import styles from './styles.module.scss';
+import { useOutsideClick } from '../../../context/useOutsideClick';
 
 const InviteEmployeeModal = ({ showModal, setShowModal }) => {
   const inputEmailRef = useRef(null);
+  const modalsRef = useRef(null);
+
   const [isLoading, setLoading] = useState(false);
+
+  useOutsideClick(modalsRef, () => setShowModal(false));
 
   const handleSubmit = () => {
     setLoading(true);
     
-    // dummy process
+    // supabase works here
     setTimeout(() => {
       setLoading(false);
       setShowModal(false);
@@ -24,7 +29,7 @@ const InviteEmployeeModal = ({ showModal, setShowModal }) => {
       <div
         className={cx(styles.InviteEmployeeModal__wrapper, "justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none")}
       >
-        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+        <div ref={modalsRef} className="relative w-auto my-6 mx-auto max-w-3xl">
           <div className={cx(styles.InviteEmployeeModal__formWrapper, "border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none")}>
             <div className={cx(styles.InviteEmployeeModal__formHeader, "flex items-start justify-between border-b border-solid border-blueGray-200 rounded-t")}>
               <h2 className="font-semibold">

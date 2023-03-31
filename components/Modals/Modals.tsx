@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import cx from 'classnames';
 
 import styles from './styles.module.scss';
+import { useOutsideClick } from '../../context/useOutsideClick';
 
 interface ModalsProps {
   title?: React.ReactNode;
@@ -20,12 +21,16 @@ const Modals: FC<ModalsProps> = ({
   handleClose,
   handleDelete
 }) => {
+  const modalsRef = useRef(null);
+
+  useOutsideClick(modalsRef, handleClose);
+
   return (
     <>
       <div
         className={cx(styles.Modals__wrapper, "justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none")}
       >
-        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+        <div ref={modalsRef} className="relative w-auto my-6 mx-auto max-w-3xl">
           <div className={cx(styles.Modals__formWrapper, "border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none")}>
             <div className={cx(styles.Modals__formHeader, "flex items-start justify-between border-b border-solid border-blueGray-200 rounded-t")}>
               <h2 className="font-semibold">
