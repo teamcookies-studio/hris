@@ -14,7 +14,7 @@ export default function TimeoffTypesEditForm(){
   const [type, setType] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
-  const { id } = router.query as { id: string | null };
+  const id = router.query?.id as string;
 
   const fetchTimeoffTypesByClientId = useCallback(async () => {
     if (!user) return;

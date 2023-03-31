@@ -12,7 +12,7 @@ export default function ProfileUpdate() {
   const [employee, setEmployee] = useState<Employee>(null);
   const [isFetching, setIsFetching] = useState<boolean>(true);
   
-  const { id } = router.query as { id: string | null };
+  const id = router.query?.id as string;
   const isPersonalProfile = router.pathname.includes('profile');
 
   const fetchEmployeeByUserId = useCallback(async () => {
