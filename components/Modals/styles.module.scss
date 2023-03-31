@@ -1,4 +1,4 @@
-.Modal__wrapper {
+.Modals__wrapper {
   background: #0000004d;
   width: 100%;
   position: fixed;
@@ -7,19 +7,19 @@
   left: 0;
   height: 100%;
 }
-.Modal__formWrapper {
+.Modals__formWrapper {
   padding: 16px;
   gap: 12px;
   width: 500px;
   max-width: 80%;
 }
-.Modal__formHeader {
+.Modals__formHeader {
   display: flex;
   align-items: center;
 }
-.Modal__formInput {
+.Modals__formInput {
   position: relative;
 }
-.Modal__formAction {
+.Modals__formAction {
 
 }

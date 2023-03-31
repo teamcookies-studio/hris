@@ -7,6 +7,7 @@ import timeoffService from '../../../../services/timeoff/timeoff.service';
 import { CustomTable } from '../../../common/CustomTable';
 import { Dropdown } from '../../../common/Dropdown';
 import { SearchInput } from '../../../common/SearchInput';
+import { Modals } from '../../../Modals';
 
 
 const MOCK_FILTER = [
@@ -89,6 +90,7 @@ export default function TimeoffQuotaList() {
         thead={headerLabels}
         tbody={quotas || []}
       />
+      <Modals handleClose={() => {}} handleDelete={() => {}} />
     </div>
   );
 }

@@ -4,11 +4,22 @@ import cx from 'classnames';
 import styles from './styles.module.scss';
 
 interface ModalsProps {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  cancelText?: string;
+  submitText?: string;
   handleClose: () => void;
   handleDelete: () => void;
 }
 
-const Modals: FC<ModalsProps> = ({ handleClose, handleDelete }) => {
+const Modals: FC<ModalsProps> = ({
+  title = 'Modals',
+  description = 'Description of Modals',
+  cancelText = 'Cancel',
+  submitText = 'Submit',
+  handleClose,
+  handleDelete
+}) => {
   return (
     <>
       <div
@@ -18,7 +29,7 @@ const Modals: FC<ModalsProps> = ({ handleClose, handleDelete }) => {
           <div className={cx(styles.Modals__formWrapper, "border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none")}>
             <div className={cx(styles.Modals__formHeader, "flex items-start justify-between border-b border-solid border-blueGray-200 rounded-t")}>
               <h2 className="font-semibold">
-                Confirmation Delete
+                {title}
               </h2>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -30,7 +41,8 @@ const Modals: FC<ModalsProps> = ({ handleClose, handleDelete }) => {
               </button>
             </div>
             <div className={cx(styles.Modals__formInput, "relative p-6 flex-auto")}>
-              <div>Do You Want To Delete ?</div>
+              {description}
+              {/* <div>Do You Want To Delete ?</div> */}
             </div>
             <div className={cx(styles.Modals__formAction, "flex items-center justify-between p-6 border-t border-solid border-blueGray-200 rounded-b")}>
               <button
@@ -38,14 +50,14 @@ const Modals: FC<ModalsProps> = ({ handleClose, handleDelete }) => {
                 type="button"
                 onClick={handleClose}
               >
-                Cancel
+                {cancelText}
               </button>
               <button
                 className="text-emerald-500 active:text-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={handleDelete}
               >
-                Delete
+                {submitText}
               </button>
             </div>
           </div>
