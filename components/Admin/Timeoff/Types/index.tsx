@@ -45,9 +45,14 @@ export default function TimeoffList() {
   const handleClose = () => {
     setSelectedDeleteData(null)
   }
-  const handleDelete = () => {
-    // supabase works here
-    setSelectedDeleteData(null)
+  const handleDelete = async () => {
+    try {
+      await timeoffService.removeTimeoff(supabase, selectedDeleteData); 
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSelectedDeleteData(null)
+    }
   }
 
   return (

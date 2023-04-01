@@ -94,6 +94,18 @@ const timeoffQuotaRepository = {
       employee_name: val.employee_id.name,
     }));
   },
+
+  delete: async (supabase: SupabaseClient, id: string): Promise<boolean> => {
+    const { error } = await supabase
+      .from("timeoff_quotas")
+      .delete()
+      .eq("id", id)
+      .select();
+
+    if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
+
+    return true;
+  },
 };
 
 export default timeoffQuotaRepository;

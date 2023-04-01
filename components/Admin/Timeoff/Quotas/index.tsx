@@ -70,9 +70,14 @@ export default function TimeoffQuotaList() {
     setSelectedDeleteData(null)
   }
 
-  const handleDelete = () => {
-    // sopabase goes here
-    setSelectedDeleteData(null)
+  const handleDelete = async () => {
+    try {
+      await timeoffService.removeTimeoff(supabase, selectedDeleteData); 
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSelectedDeleteData(null)
+    }
   }
 
   if (isFetching) {

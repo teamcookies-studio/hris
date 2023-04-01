@@ -78,6 +78,18 @@ const timeoffTypeRepository = {
 
     return data;
   },
+
+  delete: async (supabase: SupabaseClient, id: string): Promise<boolean> => {
+    const { error } = await supabase
+      .from("timeoff_types")
+      .delete()
+      .eq("id", id)
+      .select();
+
+    if (error) throw Error(ERROR.SOMETHING_WENT_WRONG);
+
+    return true;
+  },
 };
 
 export default timeoffTypeRepository;

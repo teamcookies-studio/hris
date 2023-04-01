@@ -15,7 +15,9 @@ import {
   TimeoffRequestFindAllByDelegateListPayload,
   TimeoffRequestFindAllByReviewerListPayload,
   TimeoffRequestReviewPayload,
+  TimeoffTypeCreation,
   TimeoffTypeFindAllByClientPayload,
+  TimeoffTypeUpdate,
 } from "./timeoff.interface";
 
 const timeoffTypeService = {
@@ -30,6 +32,24 @@ const timeoffTypeService = {
     payload: TimeoffTypeFindAllByClientPayload
   ) => {
     return await timeoffTypeRepository.findOne(supabase, payload);
+  },
+  createTimeoff: async (
+    supabase: SupabaseClient,
+    payload: TimeoffTypeCreation
+  ) => {
+    return await timeoffTypeRepository.create(supabase, payload);
+  },
+  updateTimeoff: async (
+    supabase: SupabaseClient,
+    payload: TimeoffTypeUpdate
+  ) => {
+    return await timeoffTypeRepository.update(supabase, payload);
+  },
+  removeTimeoff: async (
+    supabase: SupabaseClient,
+    id: string
+  ) => {
+    return await timeoffTypeRepository.delete(supabase, id);
   },
 };
 
@@ -69,6 +89,12 @@ const timeoffQuotaService = {
       supabase,
       payload.client_id
     );
+  },
+  removeQuotas: async (
+    supabase: SupabaseClient,
+    id: string
+  ) => {
+    return await timeoffQuotaRepository.delete(supabase, id);
   },
 };
 
