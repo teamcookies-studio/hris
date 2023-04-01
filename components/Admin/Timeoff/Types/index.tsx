@@ -55,18 +55,15 @@ export default function TimeoffList() {
       <CustomTable
         tableTitle="Timeoff Types"
         tableAction={() => (
-          <>
-            <Link
-              href={"/admin/timeoff/types/creates"}
-              className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-            >
-              Add Timeoff Type
-            </Link>
-          </>
+          <Link
+            href={"/admin/timeoff/types/creates"}
+            className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+          >
+            Add Timeoff Type
+          </Link>
         )}
         hasOrderNumber
         showViewOptions={false}
-        // actionDropdown,
         thead={headerLabels}
         tbody={types || []}
         handleEdit={id => router.push(`/admin/timeoff/types/${id}`)}
