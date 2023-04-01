@@ -17,7 +17,7 @@ export interface Employee {
 }
 
 export interface EmployeeCreatePayload {
-  user_id: string;
+  user_id?: string;
   name: string;
   nickname?: string;
   phone?: string;
