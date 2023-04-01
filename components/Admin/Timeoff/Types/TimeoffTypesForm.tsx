@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface TimeoffTypesFormProps {
   id: string;
@@ -10,9 +10,16 @@ interface TimeoffTypesFormProps {
 
 const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = null, handleUpdate }) => {
   const router = useRouter();
-  const handleCreate = () => {
-    // Supabase goes here;
-    router.push('/admin/timeoff/types');
+  const [timeoffType, setTimeoffType] = useState(type?.label || '');
+  const [timeoffDescription, setTimeoffDescription] = useState(type?.description || '');
+
+  const handleCreate = async () => {
+    try {
+      // Supabase goes here;
+      router.push('/admin/timeoff/types');
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 
   return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
@@ -26,12 +33,6 @@ const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = n
           >
             Cancel
           </Link>
-          {/* <Link
-            href="/admin/timeoff/types"
-            className="bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-          >
-            {id ? 'Update' : 'Create'} Timeoff
-          </Link> */}
           <button
             className="cursor-pointer bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
             onClick={() => id ? handleUpdate?.(id) : handleCreate?.()}
@@ -56,7 +57,8 @@ const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = n
                 type="text"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 placeholder="E.g. cuti sakit, cuti hamil, cuti nikah, cuti apapun, etc."
-                defaultValue={type?.label || ''}
+                value={timeoffType}
+                onChange={(e) => setTimeoffType(e.target.value)}
               />
             </div>
           </div>
@@ -73,7 +75,8 @@ const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = n
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 rows={4}
                 placeholder="Description."
-                defaultValue={type?.description || ''}
+                value={timeoffDescription}
+                onChange={(e) => setTimeoffDescription(e.target.value)}
               ></textarea>
             </div>
           </div>
