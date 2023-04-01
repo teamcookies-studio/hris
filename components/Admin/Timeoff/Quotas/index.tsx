@@ -101,7 +101,6 @@ export default function TimeoffQuotaList() {
         showViewOptions={false}
         handleEdit={id => router.push(`/admin/timeoff/quotas/edit/${id}`)}
         handleDelete={id => setSelectedDeleteData(id)}
-        // actionDropdown,
         thead={headerLabels}
         tbody={quotas || []}
       />

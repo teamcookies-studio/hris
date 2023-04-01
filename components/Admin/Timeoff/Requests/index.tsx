@@ -90,7 +90,6 @@ export default function TimeoffTypesList() {
           </>
         )}
         hasOrderNumber
-        // actionDropdown,
         thead={headerLabels}
         tbody={requests || []}
       />
