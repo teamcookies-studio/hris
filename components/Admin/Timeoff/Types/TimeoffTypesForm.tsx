@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import timeoffService from '../../../../services/timeoff/timeoff.service';
+import { supabase } from '@supabase/auth-ui-shared';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import employeeService from '../../../../services/employee/employee.service';
 
 interface TimeoffTypesFormProps {
   id: string;
@@ -10,12 +14,18 @@ interface TimeoffTypesFormProps {
 
 const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = null, handleUpdate }) => {
   const router = useRouter();
+  const supabase = useSupabaseClient();
+  const user = useUser();
   const [timeoffType, setTimeoffType] = useState(type?.label || '');
   const [timeoffDescription, setTimeoffDescription] = useState(type?.description || '');
 
   const handleCreate = async () => {
     try {
       // Supabase goes here;
+      const employee = await employeeService.getByUserId(supabase, user.id); 
+
+      await timeoffService.createTimeoff(supabase, { label: timeoffType, client_id: employee.client_id });
+
       router.push('/admin/timeoff/types');
     } catch (e) {
       console.log(e.message);
@@ -35,7 +45,7 @@ const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = n
           </Link>
           <button
             className="cursor-pointer bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-            onClick={() => id ? handleUpdate?.(id) : handleCreate?.()}
+            onClick={() => id ? handleUpdate?.(id, timeoffType) : handleCreate?.()}
           >
             {id ? 'Update' : 'Create'} Timeoff
           </button>

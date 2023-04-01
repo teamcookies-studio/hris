@@ -3,7 +3,6 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
-import employeeService from '../../../../services/employee/employee.service';
 import timeoffService from '../../../../services/timeoff/timeoff.service';
 import TimeoffTypesForm from "./TimeoffTypesForm";
 
@@ -35,10 +34,18 @@ export default function TimeoffTypesEditForm(){
     fetchTimeoffTypesByClientId();
   }, [fetchTimeoffTypesByClientId]);
 
-  const handleUpdate = (id) => {
-    console.log('updated id '+ id);
-    // Supabase goes here;
-    router.push('/admin/timeoff/types');
+  const handleUpdate = async (id, timeoffType) => {
+    try {
+      await timeoffService.updateTimeoff(supabase, { id, label: timeoffType });
+    
+      router.push('/admin/timeoff/types');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  if (isFetching) {
+    return <div>Loading...</div>
   }
 
   return <TimeoffTypesForm id={id} type={type} handleUpdate={handleUpdate} />
