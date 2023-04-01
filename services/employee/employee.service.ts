@@ -39,6 +39,10 @@ const employeeService = {
   ): Promise<Employee> => {
     return await employeeRepository.update(supabase, payload);
   },
+
+  remove: async (supabase: SupabaseClient, id: string): Promise<boolean> => {
+    return await employeeRepository.delete(supabase, id);
+  },
 };
 
 export default employeeService;
