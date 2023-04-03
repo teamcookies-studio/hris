@@ -8,6 +8,7 @@ import { CustomTable } from '../../../common/CustomTable';
 import { Dropdown } from '../../../common/Dropdown';
 import { SearchInput } from '../../../common/SearchInput';
 import { Modals } from '../../../Modals';
+import Loading from '../../../common/Loading/Loading';
 
 
 const MOCK_FILTER = [
@@ -81,7 +82,7 @@ export default function TimeoffQuotaList() {
   }
 
   if (isFetching) {
-    return <div>Loading...</div>
+    return <Loading isLoading={isFetching} />
   }
 
   return (

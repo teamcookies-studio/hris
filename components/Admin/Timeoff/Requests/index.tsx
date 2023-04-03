@@ -5,6 +5,7 @@ import { TimeoffStatus } from '../../../../modules/timeoff-request/timeoff-reque
 import employeeService from '../../../../services/employee/employee.service';
 import timeoffService from '../../../../services/timeoff/timeoff.service';
 import { CustomTable } from '../../../common/CustomTable';
+import Loading from '../../../common/Loading/Loading';
 
 const headerLabels = [
   {
@@ -74,6 +75,10 @@ export default function TimeoffTypesList() {
   useEffect(() => {
     fetchTimeoffQuotasByClientId();
   }, [fetchTimeoffQuotasByClientId]);
+
+  if (isFetching) {
+    return <Loading isLoading={isFetching} />
+  }
 
   return (
     <div>

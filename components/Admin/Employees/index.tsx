@@ -9,6 +9,7 @@ import employeeService from '../../../services/employee/employee.service';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import { EMPLOYEE_TABLE_HEADER } from './constants';
 import { Modals } from '../../Modals';
+import Loading from '../../common/Loading/Loading';
 
 export default function ListEmployees() {
   const router = useRouter();
@@ -51,7 +52,7 @@ export default function ListEmployees() {
   }
 
   if (isFetching) {
-    return <div>Loading...</div>
+    return <Loading isLoading={isFetching} />
   }
 
   return (

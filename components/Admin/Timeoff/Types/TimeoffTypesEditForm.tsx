@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import timeoffService from '../../../../services/timeoff/timeoff.service';
 import TimeoffTypesForm from "./TimeoffTypesForm";
+import Loading from '../../../common/Loading/Loading';
 
 export default function TimeoffTypesEditForm(){
   const user = useUser();
@@ -45,7 +46,7 @@ export default function TimeoffTypesEditForm(){
   }
 
   if (isFetching) {
-    return <div>Loading...</div>
+    return <Loading isLoading={isFetching} />
   }
 
   return <TimeoffTypesForm id={id} type={type} handleUpdate={handleUpdate} />

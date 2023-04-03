@@ -5,6 +5,7 @@ import timeoffService from '../../../../services/timeoff/timeoff.service';
 import { supabase } from '@supabase/auth-ui-shared';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import employeeService from '../../../../services/employee/employee.service';
+import Loading from '../../../common/Loading/Loading';
 
 interface TimeoffTypesFormProps {
   id: string;
@@ -18,10 +19,11 @@ const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = n
   const user = useUser();
   const [timeoffType, setTimeoffType] = useState(type?.label || '');
   const [timeoffDescription, setTimeoffDescription] = useState(type?.description || '');
+  const [isFetching, setFetching] = useState(false);
 
   const handleCreate = async () => {
     try {
-      // Supabase goes here;
+      setFetching(true);
       const employee = await employeeService.getByUserId(supabase, user.id); 
 
       await timeoffService.createTimeoff(supabase, { label: timeoffType, client_id: employee.client_id });
@@ -29,7 +31,13 @@ const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = n
       router.push('/admin/timeoff/types');
     } catch (e) {
       console.log(e.message);
+    } finally {
+      setFetching(false);
     }
+  }
+
+  if (isFetching) {
+    return <Loading isLoading={isFetching} />
   }
 
   return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">

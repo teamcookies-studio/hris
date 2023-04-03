@@ -6,6 +6,7 @@ import { Employee } from "../../../modules/employee/employee.interface";
 import employeeService from "../../../services/employee/employee.service";
 import roleRepository from "../../../modules/role/role.repository";
 import { Roles } from "../../../modules/role/role.interface";
+import Loading from "../../common/Loading/Loading";
 
 export default function EmployeeCreation() {
   const router = useRouter();
@@ -61,6 +62,7 @@ export default function EmployeeCreation() {
 
   return (
     <>
+      <Loading isLoading={isFetching} />
       <div className="mt-16 relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <form>
           <div className="rounded-t bg-white mb-0 px-6 py-6">

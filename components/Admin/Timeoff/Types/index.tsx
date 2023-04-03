@@ -6,6 +6,7 @@ import employeeService from '../../../../services/employee/employee.service';
 import timeoffService from '../../../../services/timeoff/timeoff.service';
 import { CustomTable } from '../../../common/CustomTable';
 import { Modals } from '../../../Modals';
+import Loading from '../../../common/Loading/Loading';
 
 const headerLabels = [
   {
@@ -57,6 +58,7 @@ export default function TimeoffList() {
 
   return (
     <div>
+      <Loading isLoading={isFetching} />
       <CustomTable
         tableTitle="Timeoff Types"
         tableAction={() => (
