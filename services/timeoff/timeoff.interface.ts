@@ -54,5 +54,15 @@ export interface TimeoffQuotaFindOneByTypeAndEmployeePayload {
 }
 
 export interface TimeoffTypeFindAllByClientPayload {
+  id?: string;
+  client_id?: string;
+}
+
+export interface TimeoffTypeCreation {
+  label: string;
   client_id: string;
+}
+export interface TimeoffTypeUpdate {
+  id: string;
+  label: string;
 }

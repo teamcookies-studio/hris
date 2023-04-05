@@ -1,7 +1,45 @@
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import timeoffService from '../../../../services/timeoff/timeoff.service';
+import { supabase } from '@supabase/auth-ui-shared';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import employeeService from '../../../../services/employee/employee.service';
+import Loading from '../../../common/Loading/Loading';
 
-const TimeoffTypesForm = () => {
+interface TimeoffTypesFormProps {
+  id: string;
+  type: any;
+  handleUpdate?: any;
+}
+
+const TimeoffTypesForm: React.FC<TimeoffTypesFormProps> = ({ id = null, type = null, handleUpdate }) => {
+  const router = useRouter();
+  const supabase = useSupabaseClient();
+  const user = useUser();
+  const [timeoffType, setTimeoffType] = useState(type?.label || '');
+  const [timeoffDescription, setTimeoffDescription] = useState(type?.description || '');
+  const [isFetching, setFetching] = useState(false);
+
+  const handleCreate = async () => {
+    try {
+      setFetching(true);
+      const employee = await employeeService.getByUserId(supabase, user.id); 
+
+      await timeoffService.createTimeoff(supabase, { label: timeoffType, client_id: employee.client_id });
+
+      router.push('/admin/timeoff/types');
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setFetching(false);
+    }
+  }
+
+  if (isFetching) {
+    return <Loading isLoading={isFetching} />
+  }
+
   return <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
     <div className="rounded-t bg-white mb-0 px-6 py-6">
       <div className="text-center flex justify-between">
@@ -13,12 +51,12 @@ const TimeoffTypesForm = () => {
           >
             Cancel
           </Link>
-          <Link
-            href="/admin/timeoff/types"
-            className="bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+          <button
+            className="cursor-pointer bg-emerald-500 active:bg-emerald-300 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+            onClick={() => id ? handleUpdate?.(id, timeoffType) : handleCreate?.()}
           >
-            Update Timeoff
-          </Link>
+            {id ? 'Update' : 'Create'} Timeoff
+          </button>
         </div>
       </div>
     </div>
@@ -36,7 +74,9 @@ const TimeoffTypesForm = () => {
               <input
                 type="text"
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                defaultValue="E.g. cuti sakit, cuti hamil, cuti nikah, cuti apapun, etc."
+                placeholder="E.g. cuti sakit, cuti hamil, cuti nikah, cuti apapun, etc."
+                value={timeoffType}
+                onChange={(e) => setTimeoffType(e.target.value)}
               />
             </div>
           </div>
@@ -52,7 +92,9 @@ const TimeoffTypesForm = () => {
               <textarea
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 rows={4}
-                defaultValue="Description."
+                placeholder="Description."
+                value={timeoffDescription}
+                onChange={(e) => setTimeoffDescription(e.target.value)}
               ></textarea>
             </div>
           </div>

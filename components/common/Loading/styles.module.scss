@@ -1,0 +1,30 @@
+$loadingCircleSize: 32px;
+$loadingCircleColor: #666;
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+}
+
+.loadingCircle {
+  border: 2px solid $loadingCircleColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  width: $loadingCircleSize;
+  height: $loadingCircleSize;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

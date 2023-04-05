@@ -6,6 +6,7 @@ import moment from "moment";
 import { Dropdown } from "../../../common/Dropdown";
 import employeeService from "../../../../services/employee/employee.service";
 import timeoffService from "../../../../services/timeoff/timeoff.service";
+import Loading from '../../../common/Loading/Loading';
 
 const quotaTypes = [
   { value: 'by_employee', label: 'By Employee' },
@@ -73,6 +74,10 @@ export default function TimeoffQuotaForm() {
 
   const generateYears = () => {
     return Array.from(Array(10).keys()).map((i) => (moment().year() + i))
+  }
+
+  if (isFetching) {
+    return <Loading isLoading={isFetching} />
   }
 
   return (

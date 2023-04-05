@@ -16,5 +16,6 @@ export interface TimeoffTypeUpdatePayload {
 }
 
 export interface TimeoffTypeFindAllPayload {
-  client_id: string;
+  client_id?: string;
+  id?: string;
 } 

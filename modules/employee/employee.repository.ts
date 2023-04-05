@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { DEFAULT_LIMIT } from "../../utils/constants";
 import ERROR from "../../utils/errors";
 import {
   Employee,
@@ -43,7 +44,7 @@ const employeeRepository = {
     supabase: SupabaseClient,
     payload: EmployeeFindAllPayload
   ): Promise<Employee[]> => {
-    let builder = supabase.from("employees").select("*").range(0, 10);
+    let builder = supabase.from("employees").select("*").range(0, DEFAULT_LIMIT);
 
     builder = Object.keys(payload).reduce((prev, key) => {
       return prev.eq(key, payload[key]);

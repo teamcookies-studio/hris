@@ -1,15 +1,24 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useEffect, useRef, useState } from "react";
 
 interface NotificationDropdownProps {
-  handleView?: any,
-  handleEdit?: any,
-  handleDelete?: any,
+  handleView: (id: string) => void;
+  handleEdit: (id: string) => void;
+  handleDelete: (id: string) => void;
+  id: string;
+  showViewOptions?: boolean;
+  showEditOptions?: boolean;
+  showDeleteOptions?: boolean;
 }
 
 const NotificationDropdown: FC<NotificationDropdownProps> = ({
   handleView,
   handleEdit,
   handleDelete,
+  showViewOptions = true,
+  showEditOptions = true,
+  showDeleteOptions = true,
+  id,
 }) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
   const dropdownRef = useRef(null);
@@ -37,7 +46,6 @@ const NotificationDropdown: FC<NotificationDropdownProps> = ({
     <>
       <a
         className="text-blueGray-500 py-1 px-3"
-        href="#pablo"
         onClick={(e) => {
           e.preventDefault();
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
@@ -52,44 +60,46 @@ const NotificationDropdown: FC<NotificationDropdownProps> = ({
           "absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 right-2-rem"
         }
       >
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-blueGray-800"
-          }
-          onClick={() => {
-            handleView?.()
-            setDropdownPopoverShow(false)
-          }}
-        >
-          View
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={() => {
-            handleEdit?.()
-            setDropdownPopoverShow(false)
-          }}
-        >
-          Edit
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={() => {
-            handleDelete?.()
-            setDropdownPopoverShow(false)
-          }}
-        >
-          Delete
-        </a>
+        {showViewOptions && (
+          <a
+            className={
+              "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:text-blueGray-800"
+            }
+            onClick={() => {
+              handleView?.(id)
+              setDropdownPopoverShow(false)
+            }}
+          >
+            View
+          </a>
+        )}
+        {showEditOptions && (
+          <a
+            className={
+              "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+            onClick={() => {
+              handleEdit?.(id)
+              setDropdownPopoverShow(false)
+            }}
+          >
+            Edit
+          </a>
+        )}
+        {showDeleteOptions && (
+          <a
+            className={
+              "cursor-pointer text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+            onClick={() => {
+              handleDelete?.(id)
+              setDropdownPopoverShow(false)
+            }}
+          >
+            Delete
+          </a>
+        )}
         {/* <a
-          href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
